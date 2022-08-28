@@ -1,0 +1,27 @@
+/// Color Editing Functions.
+/// These 3 functions expect the name of the color (as writting in configuration) you want to get a copy of, and the amount of change in positive value for the first two.
+/// Then they return an edited version of your color.
+
+@function m-darker($name, $amount) {
+  $colorH: var(--m-color-#{$name}-h);
+  $colorS: var(--m-color-#{$name}-s);
+  $colorL: calc(var(--m-color-#{$name}-l) - $amount);
+  $colorA: var(--m-color-#{$name}-a);
+  @return hsla($colorH, $colorS, $colorL, $colorA);
+}
+
+@function m-lighter($name, $amount) {
+  $colorH: var(--m-color-#{$name}-h);
+  $colorS: var(--m-color-#{$name}-s);
+  $colorL: calc(var(--m-color-#{$name}-l) + $amount);
+  $colorA: var(--m-color-#{$name}-a);
+  @return hsla($colorH, $colorS, $colorL, $colorA);
+}
+
+@function m-change-opacity($name, $amount) {
+  $colorH: var(--m-color-#{$name}-h);
+  $colorS: var(--m-color-#{$name}-s);
+  $colorL: var(--m-color-#{$name}-l);
+  $colorA: calc(var(--m-color-#{$name}-a) + $amount);
+  @return hsla($colorH, $colorS, $colorL, $colorA);
+}

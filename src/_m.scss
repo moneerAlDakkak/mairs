@@ -1,0 +1,27 @@
+@import "./styles/animations";
+@import "./styles/ui";
+@import "./styles/vars";
+@import "./styles/functions"; // you may need to change it when the functions require configs file
+
+html[dir="rtl"] {
+  --m-ui-direction: rtl;
+}
+
+html[dir="ltr"] {
+  --m-ui-direction: ltr;
+}
+
+body {
+  font-family: $font_en, Arial;
+  &:is(html[lang="ar"]) {
+    font-family: $font_ar, Arial;
+  }
+  margin: 0;
+  min-height: 100vh;
+  background-color: $color_main;
+  color: $color_text;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}

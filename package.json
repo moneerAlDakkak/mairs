@@ -1,0 +1,55 @@
+{
+  "name": "mairs",
+  "author": "Moneer AlDakkak", 
+  "version": "1.0.2",
+  "type": "module",
+  "homepage": "https://mairs.herokuapp.com/",
+  "license": "MIT",
+  "keywords": [
+    "vue",
+    "nuxt",
+    "sass",
+    "components",
+    "components library",
+    "vue framework",
+    "styling",
+    "library",
+    "theming",
+    "dark-mode",
+    "poppup",
+    "mathjax",
+    "dropdown",
+    "m-labs"
+  ],
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "main": "./dist/mairs.umd.js",
+  "module": "./dist/mairs.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mairs.es.js",
+      "require": "./dist/mairs.umd.js"
+    },
+    "./style": "./dist/style.css",
+    "./sass": "./src/_m.scss"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "sass": "^1.54.5",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13",
+    "@vitejs/plugin-vue": "^3.0.3",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7",
+    "vue-tsc": "^0.39.5"
+  }
+}
