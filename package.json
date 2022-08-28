@@ -1,7 +1,7 @@
 {
   "name": "mairs",
   "author": "Moneer AlDakkak", 
-  "version": "1.0.2",
+  "version": "1.0.5",
   "type": "module",
   "homepage": "https://mairs.herokuapp.com/",
   "license": "MIT",
@@ -33,7 +33,7 @@
       "import": "./dist/mairs.es.js",
       "require": "./dist/mairs.umd.js"
     },
-    "./style": "./dist/style.css",
+    "./components-style": "./dist/style.css",
     "./sass": "./src/_m.scss"
   },
   "scripts": {
