@@ -1,9 +1,8 @@
 <template>
-  <button :class="classes" @click.self.prevent="goToLink">
+  <button :class="classes">
     <i v-if="iconStart" :class="iconStart"></i>
     <slot></slot>
     <i v-if="iconEnd" :class="iconEnd"></i>
-    <a v-if="href" :href="href" ref="a">a</a>
   </button>
 </template>
 
@@ -65,10 +64,7 @@ button {
   font-family: inherit;
   border: none;
   outline: none;
-  a {
-    visibility: hidden;
-    position: absolute;
-  }
+  text-decoration: none;
   &.MBUTTON {
     display: inline-flex;
     justify-content: center;

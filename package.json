@@ -1,9 +1,13 @@
 {
   "name": "mairs",
-  "author": "Moneer AlDakkak", 
-  "version": "1.0.5",
+  "author": "Moneer AlDakkak",
+  "version": "1.0.7",
   "type": "module",
   "homepage": "https://mairs.herokuapp.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moneerAlDakkak/mairs.git"
+  },
   "license": "MIT",
   "keywords": [
     "vue",
