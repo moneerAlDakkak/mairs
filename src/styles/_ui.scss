@@ -1,55 +1,55 @@
 @use "./vars" as *;
 
 @mixin padding-start($amount) {
-  &:is(html[dir="ltr"] &) {
-    padding-left: $amount;
-  }
+  padding-left: $amount;
+  &:is(html[lang="ar"] &),
   &:is(html[dir="rtl"] &) {
     padding-right: $amount;
+    padding-left: 0;
   }
 }
 
 @mixin padding-end($amount) {
-  &:is(html[dir="ltr"] &) {
-    padding-right: $amount;
-  }
+  padding-right: $amount;
+  &:is(html[lang="ar"] &),
   &:is(html[dir="rtl"] &) {
     padding-left: $amount;
+    padding-right: 0;
   }
 }
 
 @mixin margin-start($amount) {
-  &:is(html[dir="ltr"] &) {
-    margin-left: $amount;
-  }
+  margin-left: $amount;
+  &:is(html[lang="ar"] &),
   &:is(html[dir="rtl"] &) {
     margin-right: $amount;
+    margin-left: 0;
   }
 }
 
 @mixin margin-end($amount) {
-  &:is(html[dir="ltr"] &) {
-    margin-right: $amount;
-  }
+  margin-right: $amount;
+  &:is(html[lang="ar"] &),
   &:is(html[dir="rtl"] &) {
     margin-left: $amount;
+    margin-right: 0;
   }
 }
 
 @mixin horizon-start($amount) {
-  &:is(html[dir="ltr"] &) {
-    left: $amount;
-  }
+  left: $amount;
+  &:is(html[lang="ar"] &),
   &:is(html[dir="rtl"] &) {
     right: $amount;
+    left: auto;
   }
 }
 
 @mixin horizon-end($amount) {
-  &:is(html[dir="ltr"] &) {
-    right: $amount;
-  }
+  right: $amount;
+  &:is(html[lang="ar"] &),
   &:is(html[dir="rtl"] &) {
     left: $amount;
+    right: auto;
   }
 }
