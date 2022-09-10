@@ -27,9 +27,6 @@ export default {
     to: {
       type: String,
     },
-    href: {
-      type: String,
-    },
   },
   computed: {
     classes() {
@@ -47,9 +44,6 @@ export default {
     goToLink() {
       if (this.to) {
         this.$router.push(this.to);
-      }
-      if (this.href) {
-        this.$refs.a.click();
       }
     },
   },

@@ -9,7 +9,7 @@ var c = (e, t, n) => (D(e, t, "read from private field"), n ? n.call(e) : t.get(
     throw TypeError("Cannot add the same private member more than once");
   t instanceof WeakSet ? t.add(e) : t.set(e, n);
 }, T = (e, t, n, r) => (D(e, t, "write to private field"), r ? r.call(e, n) : t.set(e, n), n);
-import { openBlock as o, createElementBlock as l, normalizeClass as u, renderSlot as _, resolveComponent as L, withDirectives as R, createVNode as H, TransitionGroup as J, withCtx as k, Fragment as N, renderList as X, createElementVNode as p, createCommentVNode as f, createTextVNode as C, toDisplayString as $, vShow as q, withModifiers as E, normalizeStyle as B, createBlock as P, mergeProps as V, Transition as U, pushScopeId as W, popScopeId as Y } from "vue";
+import { openBlock as o, createElementBlock as l, normalizeClass as u, renderSlot as _, resolveComponent as L, withDirectives as R, createVNode as H, TransitionGroup as J, withCtx as w, Fragment as N, renderList as X, createElementVNode as p, createCommentVNode as f, createTextVNode as C, toDisplayString as $, vShow as q, withModifiers as E, normalizeStyle as B, createBlock as P, mergeProps as V, Transition as U, pushScopeId as W, popScopeId as Y } from "vue";
 function A(e) {
   let [t, n, r, s = 1] = e.slice(e.indexOf("(") + 1, e.indexOf(")")).split(",").map((O) => parseInt(O));
   t /= 255, n /= 255, r /= 255;
@@ -188,7 +188,7 @@ function ae(e, t, n, r, s, i) {
     H(J, {
       name: n.animation ? n.animation : "slide-right"
     }, {
-      default: k(() => [
+      default: w(() => [
         (o(!0), l(N, null, X(s.notes, (a) => (o(), l("div", {
           key: a.title,
           class: u(`MNOTE ${a.accent ? "accent" : ""}`),
@@ -205,7 +205,7 @@ function ae(e, t, n, r, s, i) {
             autoDirection: "",
             math: ""
           }, {
-            default: k(() => [
+            default: w(() => [
               C($(a.message), 1)
             ]),
             _: 2
@@ -244,9 +244,6 @@ const le = {
     },
     to: {
       type: String
-    },
-    href: {
-      type: String
     }
   },
   computed: {
@@ -257,7 +254,7 @@ const le = {
   },
   methods: {
     goToLink() {
-      this.to && this.$router.push(this.to), this.href && this.$refs.a.click();
+      this.to && this.$router.push(this.to);
     }
   }
 };
@@ -276,7 +273,7 @@ function de(e, t, n, r, s, i) {
     }, null, 2)) : f("", !0)
   ], 2);
 }
-const ce = /* @__PURE__ */ M(le, [["render", de], ["__scopeId", "data-v-ab78429d"]]);
+const ce = /* @__PURE__ */ M(le, [["render", de], ["__scopeId", "data-v-b0ae606a"]]);
 const ue = {
   name: "MMenu",
   props: {
@@ -409,7 +406,7 @@ function ye(e, t, n, r, s, i) {
           bordered: "",
           onClick: t[0] || (t[0] = (a) => i.respond(!1))
         }, {
-          default: k(() => [
+          default: w(() => [
             C($(s.cancel), 1)
           ]),
           _: 1
@@ -418,7 +415,7 @@ function ye(e, t, n, r, s, i) {
           key: 1,
           onClick: t[1] || (t[1] = (a) => i.respond(!0))
         }, {
-          default: k(() => [
+          default: w(() => [
             C($(s.confirm), 1)
           ]),
           _: 1
@@ -510,7 +507,7 @@ function Se(e, t, n, r, s, i) {
   ], 10, ge);
 }
 const Re = /* @__PURE__ */ M(Me, [["render", Se], ["__scopeId", "data-v-2a43c111"]]);
-const ke = {
+const we = {
   name: "MSlider",
   props: { ratio: String, pop: Boolean, infinite: Boolean, changeTime: String },
   data() {
@@ -542,7 +539,7 @@ const ke = {
     }
   }
 };
-function we(e, t, n, r, s, i) {
+function ke(e, t, n, r, s, i) {
   return o(), l("div", {
     class: u(`MSLIDER ${n.pop ? "pop" : ""}`),
     style: B(`--ratio: ${n.ratio}; --child-count: ${s.child_count}`)
@@ -555,7 +552,7 @@ function we(e, t, n, r, s, i) {
     ], 4)
   ], 6);
 }
-const Je = /* @__PURE__ */ M(ke, [["render", we], ["__scopeId", "data-v-60e80c60"]]), Ie = {
+const Je = /* @__PURE__ */ M(we, [["render", ke], ["__scopeId", "data-v-60e80c60"]]), Ie = {
   name: "MForm",
   data() {
     return {
@@ -667,7 +664,7 @@ function Pe(e, t, n, r, s, i) {
     He,
     _(e.$slots, "end", {}, void 0, !0),
     H(U, { name: "fade" }, {
-      default: k(() => [
+      default: w(() => [
         n.pattern && s.firstInput ? (o(), l(N, { key: 0 }, [
           !s.patternMatch && n.invalidMessage ? (o(), l("span", Be, $(n.invalidMessage), 1)) : s.patternMatch && n.validMessage ? (o(), l("span", De, $(n.validMessage), 1)) : f("", !0)
         ], 64)) : f("", !0)
@@ -677,21 +674,21 @@ function Pe(e, t, n, r, s, i) {
   ]);
 }
 const qe = /* @__PURE__ */ M(xe, [["render", Pe], ["__scopeId", "data-v-fdf58daa"]]);
-var g, w, h;
+var g, k, h;
 const y = class {
   constructor(t) {
     b(this, "name");
     b(this, "radius");
     b(this, "fonts");
     x(this, h, { main: [], accent: [], onAccent: [], text: [] });
-    if (this.name = t.name, this.radius = t.radius || 0, this.fonts = t.fonts || { en: "", ar: "" }, T(this, h, Q(t.colors)), c(y, w)[t.name] = this, !document.getElementById("M_THEME")) {
+    if (this.name = t.name, this.radius = t.radius || 0, this.fonts = t.fonts || { en: "", ar: "" }, T(this, h, Q(t.colors)), c(y, k)[t.name] = this, !document.getElementById("M_THEME")) {
       let r = document.createElement("style");
       r.id = "M_THEME", document.body.appendChild(r);
     }
     T(y, g, document.getElementById("M_THEME"));
   }
   static apply(t) {
-    c(y, w)[t].apply();
+    c(y, k)[t].apply();
   }
   apply() {
     c(y, g).innerHTML = "", document.body.className = document.body.className.split(" ").filter((t) => !t.includes("m-theme")).join(" "), document.body.classList.add(`m-theme-${this.name}`), c(y, g).innerHTML += `.m-theme-${this.name}{ --m-ui-radius: ${this.radius}px }`, c(y, g).innerHTML += `.m-theme-${this.name}{ --m-font-en: ${this.fonts.en} }`, this.fonts.ar && (c(y, g).innerHTML += `.m-theme-${this.name}{ --m-font-ar: ${this.fonts.ar} }`);
@@ -709,7 +706,7 @@ const y = class {
   }
 };
 let S = y;
-g = new WeakMap(), w = new WeakMap(), h = new WeakMap(), x(S, g, void 0), x(S, w, {});
+g = new WeakMap(), k = new WeakMap(), h = new WeakMap(), x(S, g, void 0), x(S, k, {});
 const Ve = (e) => {
   e.config.globalProperties.$MTheme = S;
 };
