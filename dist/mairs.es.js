@@ -9,12 +9,12 @@ var c = (e, t, n) => (D(e, t, "read from private field"), n ? n.call(e) : t.get(
     throw TypeError("Cannot add the same private member more than once");
   t instanceof WeakSet ? t.add(e) : t.set(e, n);
 }, T = (e, t, n, r) => (D(e, t, "write to private field"), r ? r.call(e, n) : t.set(e, n), n);
-import { openBlock as o, createElementBlock as l, normalizeClass as u, renderSlot as _, resolveComponent as L, withDirectives as R, createVNode as H, TransitionGroup as J, withCtx as w, Fragment as N, renderList as X, createElementVNode as p, createCommentVNode as f, createTextVNode as C, toDisplayString as $, vShow as q, withModifiers as E, normalizeStyle as B, createBlock as P, mergeProps as V, Transition as U, pushScopeId as W, popScopeId as Y } from "vue";
+import { openBlock as o, createElementBlock as d, normalizeClass as u, renderSlot as _, resolveComponent as L, withDirectives as R, createVNode as H, TransitionGroup as J, withCtx as k, Fragment as N, renderList as X, createElementVNode as p, createCommentVNode as f, createTextVNode as C, toDisplayString as $, vShow as q, withModifiers as E, normalizeStyle as B, createBlock as P, mergeProps as V, Transition as U, pushScopeId as W, popScopeId as Y } from "vue";
 function A(e) {
   let [t, n, r, s = 1] = e.slice(e.indexOf("(") + 1, e.indexOf(")")).split(",").map((O) => parseInt(O));
   t /= 255, n /= 255, r /= 255;
-  let i = Math.min(t, n, r), d = Math.max(t, n, r), a = d - i, m = 0, I = 0, v = 0;
-  return a == 0 ? m = 0 : d == t ? m = (n - r) / a % 6 : d == n ? m = (r - t) / a + 2 : m = (t - n) / a + 4, m = Math.round(m * 60), m < 0 && (m += 360), v = (d + i) / 2, I = a == 0 ? 0 : a / (1 - Math.abs(2 * v - 1)), I = +(I * 100).toFixed(1), v = +(v * 100).toFixed(1), [m, I, v, s];
+  let i = Math.min(t, n, r), a = Math.max(t, n, r), l = a - i, m = 0, I = 0, v = 0;
+  return l == 0 ? m = 0 : a == t ? m = (n - r) / l % 6 : a == n ? m = (r - t) / l + 2 : m = (t - n) / l + 4, m = Math.round(m * 60), m < 0 && (m += 360), v = (a + i) / 2, I = l == 0 ? 0 : l / (1 - Math.abs(2 * v - 1)), I = +(I * 100).toFixed(1), v = +(v * 100).toFixed(1), [m, I, v, s];
 }
 function z(e) {
   let t = 0, n = 0, r = 0, s = 1;
@@ -32,8 +32,8 @@ function z(e) {
       t = "0x" + e[1] + e[2], n = "0x" + e[3] + e[4], r = "0x" + e[5] + e[6], s = "0x" + e[7] + e[8];
       break;
   }
-  let [i, d, a, m] = A(`rgba(${t}, ${n}, ${r}, ${s})`);
-  return s = (s / 255).toFixed(3), [i, d, a, s];
+  let [i, a, l, m] = A(`rgba(${t}, ${n}, ${r}, ${s})`);
+  return s = (s / 255).toFixed(3), [i, a, l, s];
 }
 function G(e) {
   let [t, n, r, s = 1] = e.slice(e.indexOf("(") + 1, e.indexOf(")")).split(",").map((i) => parseInt(i));
@@ -140,13 +140,13 @@ const M = (e, t) => {
   }
 }, ee = ["dir"];
 function te(e, t, n, r, s, i) {
-  return o(), l("p", {
+  return o(), d("p", {
     class: u(i.classes),
     ref: "mp",
     dir: s.dir,
-    onFocus: t[0] || (t[0] = (d) => i.switchToEditable()),
-    onBlur: t[1] || (t[1] = (d) => n.math ? i.renderMathJax() : null),
-    onInput: t[2] || (t[2] = (d) => {
+    onFocus: t[0] || (t[0] = (a) => i.switchToEditable()),
+    onBlur: t[1] || (t[1] = (a) => n.math ? i.renderMathJax() : null),
+    onInput: t[2] || (t[2] = (a) => {
       i.recordContent(), n.autoDirection && i.adjustDirection();
     })
   }, [
@@ -183,36 +183,36 @@ const se = {
   class: /* @__PURE__ */ u("MNOTES")
 }, re = ["onClick"], oe = ["href"];
 function ae(e, t, n, r, s, i) {
-  const d = L("MP");
-  return R((o(), l("section", ie, [
+  const a = L("MP");
+  return R((o(), d("section", ie, [
     H(J, {
       name: n.animation ? n.animation : "slide-right"
     }, {
-      default: w(() => [
-        (o(!0), l(N, null, X(s.notes, (a) => (o(), l("div", {
-          key: a.title,
-          class: u(`MNOTE ${a.accent ? "accent" : ""}`),
-          onClick: (m) => i.goToLink(a.to)
+      default: k(() => [
+        (o(!0), d(N, null, X(s.notes, (l) => (o(), d("div", {
+          key: l.title,
+          class: u(`MNOTE ${l.accent ? "accent" : ""}`),
+          onClick: (m) => i.goToLink(l.to)
         }, [
           p("b", null, [
-            a.iconStart ? (o(), l("i", {
+            l.iconStart ? (o(), d("i", {
               key: 0,
-              class: u(a.iconStart)
+              class: u(l.iconStart)
             }, null, 2)) : f("", !0),
-            C(" " + $(a.title), 1)
+            C(" " + $(l.title), 1)
           ]),
-          H(d, {
+          H(a, {
             autoDirection: "",
             math: ""
           }, {
-            default: w(() => [
-              C($(a.message), 1)
+            default: k(() => [
+              C($(l.message), 1)
             ]),
             _: 2
           }, 1024),
-          a.href ? (o(), l("a", {
+          l.href ? (o(), d("a", {
             key: 0,
-            href: a.href,
+            href: l.href,
             ref_for: !0,
             ref: "a"
           }, null, 8, oe)) : f("", !0)
@@ -259,21 +259,22 @@ const le = {
   }
 };
 function de(e, t, n, r, s, i) {
-  return o(), l("button", {
-    class: u(i.classes)
+  return o(), d("button", {
+    class: u(i.classes),
+    onClick: t[0] || (t[0] = (a) => i.goToLink())
   }, [
-    n.iconStart ? (o(), l("i", {
+    n.iconStart ? (o(), d("i", {
       key: 0,
       class: u(n.iconStart)
     }, null, 2)) : f("", !0),
     _(e.$slots, "default", {}, void 0, !0),
-    n.iconEnd ? (o(), l("i", {
+    n.iconEnd ? (o(), d("i", {
       key: 1,
       class: u(n.iconEnd)
     }, null, 2)) : f("", !0)
   ], 2);
 }
-const ce = /* @__PURE__ */ M(le, [["render", de], ["__scopeId", "data-v-b0ae606a"]]);
+const ce = /* @__PURE__ */ M(le, [["render", de], ["__scopeId", "data-v-43064f99"]]);
 const ue = {
   name: "MMenu",
   props: {
@@ -303,9 +304,9 @@ const ue = {
   }
 };
 function he(e, t, n, r, s, i) {
-  return s.shown ? (o(), l("div", {
+  return s.shown ? (o(), d("div", {
     key: 0,
-    onClick: t[0] || (t[0] = E((d) => i.hide(), ["self"])),
+    onClick: t[0] || (t[0] = E((a) => i.hide(), ["self"])),
     class: u(`MMENU ${n.blurred ? "m-blurred" : ""}`)
   }, [
     p("ul", {
@@ -334,17 +335,17 @@ const fe = {
   }
 };
 function me(e, t, n, r, s, i) {
-  return o(), l("li", {
+  return o(), d("li", {
     class: u("MMENUITEM"),
     ref: "li",
-    onClick: t[0] || (t[0] = (...d) => i.hideOnClickMethod && i.hideOnClickMethod(...d))
+    onClick: t[0] || (t[0] = (...a) => i.hideOnClickMethod && i.hideOnClickMethod(...a))
   }, [
-    n.iconStart ? (o(), l("i", {
+    n.iconStart ? (o(), d("i", {
       key: 0,
       class: u(n.iconStart)
     }, null, 2)) : f("", !0),
     _(e.$slots, "default", {}, void 0, !0),
-    n.iconEnd ? (o(), l("i", {
+    n.iconEnd ? (o(), d("i", {
       key: 1,
       class: u(n.iconEnd)
     }, null, 2)) : f("", !0)
@@ -390,10 +391,10 @@ const pe = {
   }
 }, _e = { open: "" };
 function ye(e, t, n, r, s, i) {
-  const d = L("m-button");
-  return s.isOpen ? (o(), l("div", {
+  const a = L("m-button");
+  return s.isOpen ? (o(), d("div", {
     key: 0,
-    onClick: t[2] || (t[2] = E((...a) => i.closeIfNotRequired && i.closeIfNotRequired(...a), ["self"])),
+    onClick: t[2] || (t[2] = E((...l) => i.closeIfNotRequired && i.closeIfNotRequired(...l), ["self"])),
     class: u(`MPOPPUP ${n.blurred ? "m-blurred" : ""}`)
   }, [
     p("dialog", _e, [
@@ -401,21 +402,21 @@ function ye(e, t, n, r, s, i) {
       p("p", null, $(s.message), 1),
       _(e.$slots, "default", {}, void 0, !0),
       p("section", null, [
-        s.cancel ? (o(), P(d, {
+        s.cancel ? (o(), P(a, {
           key: 0,
           bordered: "",
-          onClick: t[0] || (t[0] = (a) => i.respond(!1))
+          onClick: t[0] || (t[0] = (l) => i.respond(!1))
         }, {
-          default: w(() => [
+          default: k(() => [
             C($(s.cancel), 1)
           ]),
           _: 1
         })) : f("", !0),
-        s.confirm ? (o(), P(d, {
+        s.confirm ? (o(), P(a, {
           key: 1,
-          onClick: t[1] || (t[1] = (a) => i.respond(!0))
+          onClick: t[1] || (t[1] = (l) => i.respond(!0))
         }, {
-          default: w(() => [
+          default: k(() => [
             C($(s.confirm), 1)
           ]),
           _: 1
@@ -490,16 +491,16 @@ const Me = {
   }
 }, ge = ["open"], $e = { key: 0 }, ve = { ref: "content" };
 function Se(e, t, n, r, s, i) {
-  return o(), l("details", {
+  return o(), d("details", {
     class: u(`MDROP ${n.styled ? "m-styled" : ""}`),
     ref: "details",
     open: n.open
   }, [
     p("summary", {
       ref: "summary",
-      onClick: t[0] || (t[0] = E((...d) => i.handleClick && i.handleClick(...d), ["prevent"]))
+      onClick: t[0] || (t[0] = E((...a) => i.handleClick && i.handleClick(...a), ["prevent"]))
     }, [
-      n.summary ? (o(), l("span", $e, $(n.summary), 1)) : _(e.$slots, "summary", { key: 1 }, void 0, !0)
+      n.summary ? (o(), d("span", $e, $(n.summary), 1)) : _(e.$slots, "summary", { key: 1 }, void 0, !0)
     ], 512),
     p("section", ve, [
       _(e.$slots, "default", {}, void 0, !0)
@@ -507,7 +508,7 @@ function Se(e, t, n, r, s, i) {
   ], 10, ge);
 }
 const Re = /* @__PURE__ */ M(Me, [["render", Se], ["__scopeId", "data-v-2a43c111"]]);
-const we = {
+const ke = {
   name: "MSlider",
   props: { ratio: String, pop: Boolean, infinite: Boolean, changeTime: String },
   data() {
@@ -539,8 +540,8 @@ const we = {
     }
   }
 };
-function ke(e, t, n, r, s, i) {
-  return o(), l("div", {
+function we(e, t, n, r, s, i) {
+  return o(), d("div", {
     class: u(`MSLIDER ${n.pop ? "pop" : ""}`),
     style: B(`--ratio: ${n.ratio}; --child-count: ${s.child_count}`)
   }, [
@@ -552,7 +553,7 @@ function ke(e, t, n, r, s, i) {
     ], 4)
   ], 6);
 }
-const Je = /* @__PURE__ */ M(we, [["render", ke], ["__scopeId", "data-v-60e80c60"]]), Ie = {
+const Je = /* @__PURE__ */ M(ke, [["render", we], ["__scopeId", "data-v-60e80c60"]]), Ie = {
   name: "MForm",
   data() {
     return {
@@ -575,7 +576,7 @@ const Je = /* @__PURE__ */ M(we, [["render", ke], ["__scopeId", "data-v-60e80c60
   }
 };
 function be(e, t, n, r, s, i) {
-  return o(), l("form", {
+  return o(), d("form", {
     class: "MFORM",
     onSubmit: t[0] || (t[0] = E(() => {
     }, ["prevent"]))
@@ -648,7 +649,7 @@ const xe = {
   class: "m-valid"
 };
 function Pe(e, t, n, r, s, i) {
-  return o(), l("div", Ee, [
+  return o(), d("div", Ee, [
     _(e.$slots, "start", {}, void 0, !0),
     p("input", V({
       dir: s.dir,
@@ -657,16 +658,16 @@ function Pe(e, t, n, r, s, i) {
       id: n.id,
       type: n.type,
       value: n.modelValue,
-      onInput: t[0] || (t[0] = (d) => {
-        e.$emit("update:modelValue", d.currentTarget.value), n.autoDirection && n.type == "text" && i.adjustDirection(), s.firstInput = !0;
+      onInput: t[0] || (t[0] = (a) => {
+        e.$emit("update:modelValue", a.currentTarget.value), n.autoDirection && n.type == "text" && i.adjustDirection(), s.firstInput = !0;
       })
     }), null, 16, Te),
     He,
     _(e.$slots, "end", {}, void 0, !0),
     H(U, { name: "fade" }, {
-      default: w(() => [
-        n.pattern && s.firstInput ? (o(), l(N, { key: 0 }, [
-          !s.patternMatch && n.invalidMessage ? (o(), l("span", Be, $(n.invalidMessage), 1)) : s.patternMatch && n.validMessage ? (o(), l("span", De, $(n.validMessage), 1)) : f("", !0)
+      default: k(() => [
+        n.pattern && s.firstInput ? (o(), d(N, { key: 0 }, [
+          !s.patternMatch && n.invalidMessage ? (o(), d("span", Be, $(n.invalidMessage), 1)) : s.patternMatch && n.validMessage ? (o(), d("span", De, $(n.validMessage), 1)) : f("", !0)
         ], 64)) : f("", !0)
       ]),
       _: 1
@@ -674,21 +675,21 @@ function Pe(e, t, n, r, s, i) {
   ]);
 }
 const qe = /* @__PURE__ */ M(xe, [["render", Pe], ["__scopeId", "data-v-fdf58daa"]]);
-var g, k, h;
+var g, w, h;
 const y = class {
   constructor(t) {
     b(this, "name");
     b(this, "radius");
     b(this, "fonts");
     x(this, h, { main: [], accent: [], onAccent: [], text: [] });
-    if (this.name = t.name, this.radius = t.radius || 0, this.fonts = t.fonts || { en: "", ar: "" }, T(this, h, Q(t.colors)), c(y, k)[t.name] = this, !document.getElementById("M_THEME")) {
+    if (this.name = t.name, this.radius = t.radius || 0, this.fonts = t.fonts || { en: "", ar: "" }, T(this, h, Q(t.colors)), c(y, w)[t.name] = this, !document.getElementById("M_THEME")) {
       let r = document.createElement("style");
       r.id = "M_THEME", document.body.appendChild(r);
     }
     T(y, g, document.getElementById("M_THEME"));
   }
   static apply(t) {
-    c(y, k)[t].apply();
+    c(y, w)[t].apply();
   }
   apply() {
     c(y, g).innerHTML = "", document.body.className = document.body.className.split(" ").filter((t) => !t.includes("m-theme")).join(" "), document.body.classList.add(`m-theme-${this.name}`), c(y, g).innerHTML += `.m-theme-${this.name}{ --m-ui-radius: ${this.radius}px }`, c(y, g).innerHTML += `.m-theme-${this.name}{ --m-font-en: ${this.fonts.en} }`, this.fonts.ar && (c(y, g).innerHTML += `.m-theme-${this.name}{ --m-font-ar: ${this.fonts.ar} }`);
@@ -706,7 +707,7 @@ const y = class {
   }
 };
 let S = y;
-g = new WeakMap(), k = new WeakMap(), h = new WeakMap(), x(S, g, void 0), x(S, k, {});
+g = new WeakMap(), w = new WeakMap(), h = new WeakMap(), x(S, g, void 0), x(S, w, {});
 const Ve = (e) => {
   e.config.globalProperties.$MTheme = S;
 };

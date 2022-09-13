@@ -1,5 +1,5 @@
 <template>
-  <button :class="classes">
+  <button :class="classes" @click="goToLink()">
     <i v-if="iconStart" :class="iconStart"></i>
     <slot></slot>
     <i v-if="iconEnd" :class="iconEnd"></i>
