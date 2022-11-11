@@ -4,15 +4,14 @@
       <div
         v-for="note in notes"
         :key="note.title"
-        :class="`MNOTE ${note.accent ? 'accent' : ''}`"
-        @click="goToLink(note.to)"
+        :class="`MNOTE ${note.status ? 'm-' + note.status : ''}`"
+        @click="note.handler()"
       >
         <b>
-          <i v-if="note.iconStart" :class="note.iconStart"></i>
+          <i v-if="note.icon" :class="note.icon"></i>
           {{ note.title }}
         </b>
         <MP autoDirection math>{{ note.message }}</MP>
-        <a v-if="note.href" :href="note.href" ref="a"></a>
       </div>
     </transition-group>
   </section>
@@ -42,17 +41,12 @@ export default {
         this.notes.shift();
       }, note.timeout || this.timeout);
     },
-    goToLink(to) {
-      if (to) {
-        this.$router.push(to);
-      }
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@use "../m" as *;
+@use "../../sass" as *;
 @include m-animation-slide("slide-right", 100%, 0, 0.2s);
 section {
   z-index: 100;
@@ -70,29 +64,28 @@ section {
 
   div {
     cursor: pointer;
-    border: 2px solid m-change-opacity("text", -0.9);
-    background-color: m-change-opacity("main", -0.01);
+    border: 2px solid m-adjust-color("text", $alpha: -90%);
+    background-color: $color_box;
     color: $color_text;
-    &.accent {
-      border: 2px solid m-change-opacity("accent", -0.9);
-      background-color: m-change-opacity("accent", -0.01);
-      color: $color_onAccent;
-    }
     border-radius: min($ui_radius, 20px);
-    padding: 16px 14px;
+    padding: 17px 15px;
     max-width: 100%;
     max-height: 200px;
+    box-shadow: 0 0 2px 0 m-adjust-color("text", $alpha: -0.8);
     b {
-      i {
-        @include margin-end(10px);
+      display: flex;
+      align-items: center;
+      align-content: center;
+      gap: 15px;
+      &:is(.m-safe b) {
+        color: $color_safe;
       }
-    }
-    a {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      &:is(.m-warning b) {
+        color: $color_warning;
+      }
+      &:is(.m-danger b) {
+        color: $color_danger;
+      }
     }
     p {
       font-size: 0.94em;

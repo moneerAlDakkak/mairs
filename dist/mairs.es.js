@@ -1,66 +1,10 @@
-var j = Object.defineProperty;
-var F = (e, t, n) => t in e ? j(e, t, { enumerable: !0, configurable: !0, writable: !0, value: n }) : e[t] = n;
-var b = (e, t, n) => (F(e, typeof t != "symbol" ? t + "" : t, n), n), D = (e, t, n) => {
-  if (!t.has(e))
-    throw TypeError("Cannot " + n);
-};
-var c = (e, t, n) => (D(e, t, "read from private field"), n ? n.call(e) : t.get(e)), x = (e, t, n) => {
-  if (t.has(e))
-    throw TypeError("Cannot add the same private member more than once");
-  t instanceof WeakSet ? t.add(e) : t.set(e, n);
-}, T = (e, t, n, r) => (D(e, t, "write to private field"), r ? r.call(e, n) : t.set(e, n), n);
-import { openBlock as o, createElementBlock as d, normalizeClass as u, renderSlot as _, resolveComponent as L, withDirectives as R, createVNode as H, TransitionGroup as J, withCtx as k, Fragment as N, renderList as X, createElementVNode as p, createCommentVNode as f, createTextVNode as C, toDisplayString as $, vShow as q, withModifiers as E, normalizeStyle as B, createBlock as P, mergeProps as V, Transition as U, pushScopeId as W, popScopeId as Y } from "vue";
-function A(e) {
-  let [t, n, r, s = 1] = e.slice(e.indexOf("(") + 1, e.indexOf(")")).split(",").map((O) => parseInt(O));
-  t /= 255, n /= 255, r /= 255;
-  let i = Math.min(t, n, r), a = Math.max(t, n, r), l = a - i, m = 0, I = 0, v = 0;
-  return l == 0 ? m = 0 : a == t ? m = (n - r) / l % 6 : a == n ? m = (r - t) / l + 2 : m = (t - n) / l + 4, m = Math.round(m * 60), m < 0 && (m += 360), v = (a + i) / 2, I = l == 0 ? 0 : l / (1 - Math.abs(2 * v - 1)), I = +(I * 100).toFixed(1), v = +(v * 100).toFixed(1), [m, I, v, s];
-}
-function z(e) {
-  let t = 0, n = 0, r = 0, s = 1;
-  switch (e.length) {
-    case 4:
-      t = "0x" + e[1] + e[1], n = "0x" + e[2] + e[2], r = "0x" + e[3] + e[3], s = "0xff";
-      break;
-    case 5:
-      t = "0x" + e[1] + e[1], n = "0x" + e[2] + e[2], r = "0x" + e[3] + e[3], s = "0x" + e[4] + e[4];
-      break;
-    case 7:
-      t = "0x" + e[1] + e[2], n = "0x" + e[3] + e[4], r = "0x" + e[5] + e[6], s = "0xff";
-      break;
-    case 9:
-      t = "0x" + e[1] + e[2], n = "0x" + e[3] + e[4], r = "0x" + e[5] + e[6], s = "0x" + e[7] + e[8];
-      break;
-  }
-  let [i, a, l, m] = A(`rgba(${t}, ${n}, ${r}, ${s})`);
-  return s = (s / 255).toFixed(3), [i, a, l, s];
-}
-function G(e) {
-  let [t, n, r, s = 1] = e.slice(e.indexOf("(") + 1, e.indexOf(")")).split(",").map((i) => parseInt(i));
-  return [t, n, r, s];
-}
-function K(e) {
-  return e.includes("rgb") ? A(e) : e.includes("#") ? z(e) : e.includes("hsl") ? G(e) : (console.warn(
-    "your color should be hex, rgb or hsl. otherwise it's displayed as black"
-  ), [0, 0, 0, 1]);
-}
-function Q(e) {
-  let t = {
-    main: [],
-    accent: [],
-    onAccent: [],
-    text: []
-  };
-  for (let n in e)
-    t[n] = K(e[n]);
-  return t;
-}
-const M = (e, t) => {
-  const n = e.__vccOpts || e;
-  for (const [r, s] of t)
-    n[r] = s;
-  return n;
-}, Z = {
+import { openBlock as r, createElementBlock as o, normalizeClass as h, renderSlot as c, resolveComponent as b, withDirectives as k, createVNode as y, TransitionGroup as B, withCtx as _, Fragment as I, renderList as P, createElementVNode as u, createCommentVNode as m, createTextVNode as v, toDisplayString as p, vShow as T, withModifiers as g, normalizeStyle as M, createBlock as w, mergeProps as D, pushScopeId as E, popScopeId as N } from "vue";
+const f = (e, t) => {
+  const s = e.__vccOpts || e;
+  for (const [l, n] of t)
+    s[l] = n;
+  return s;
+}, O = {
   name: "MP",
   props: {
     math: {
@@ -138,25 +82,25 @@ const M = (e, t) => {
   mounted() {
     this.recordContent(), this.autoDirection && this.adjustDirection(), this.math && setTimeout(this.renderMathJax, 400);
   }
-}, ee = ["dir"];
-function te(e, t, n, r, s, i) {
-  return o(), d("p", {
-    class: u(i.classes),
+}, j = ["dir"];
+function H(e, t, s, l, n, i) {
+  return r(), o("p", {
+    class: h(i.classes),
     ref: "mp",
-    dir: s.dir,
+    dir: n.dir,
     onFocus: t[0] || (t[0] = (a) => i.switchToEditable()),
-    onBlur: t[1] || (t[1] = (a) => n.math ? i.renderMathJax() : null),
+    onBlur: t[1] || (t[1] = (a) => s.math ? i.renderMathJax() : null),
     onInput: t[2] || (t[2] = (a) => {
-      i.recordContent(), n.autoDirection && i.adjustDirection();
+      i.recordContent(), s.autoDirection && i.adjustDirection();
     })
   }, [
-    _(e.$slots, "default", {}, void 0, !0)
-  ], 42, ee);
+    c(e.$slots, "default", {}, void 0, !0)
+  ], 42, j);
 }
-const ne = /* @__PURE__ */ M(Z, [["render", te], ["__scopeId", "data-v-c38afcff"]]);
-const se = {
+const x = /* @__PURE__ */ f(O, [["render", H], ["__scopeId", "data-v-64579904"]]);
+const A = {
   name: "MNotes",
-  components: { MP: ne },
+  components: { MP: x },
   data() {
     return {
       notes: []
@@ -174,114 +118,96 @@ const se = {
       this.notes.push(e), setTimeout(() => {
         this.notes.shift();
       }, e.timeout || this.timeout);
-    },
-    goToLink(e) {
-      e && this.$router.push(e);
     }
   }
-}, ie = {
-  class: /* @__PURE__ */ u("MNOTES")
-}, re = ["onClick"], oe = ["href"];
-function ae(e, t, n, r, s, i) {
-  const a = L("MP");
-  return R((o(), d("section", ie, [
-    H(J, {
-      name: n.animation ? n.animation : "slide-right"
+}, F = {
+  class: /* @__PURE__ */ h("MNOTES")
+}, V = ["onClick"];
+function J(e, t, s, l, n, i) {
+  const a = b("MP");
+  return k((r(), o("section", F, [
+    y(B, {
+      name: s.animation ? s.animation : "slide-right"
     }, {
-      default: k(() => [
-        (o(!0), d(N, null, X(s.notes, (l) => (o(), d("div", {
-          key: l.title,
-          class: u(`MNOTE ${l.accent ? "accent" : ""}`),
-          onClick: (m) => i.goToLink(l.to)
+      default: _(() => [
+        (r(!0), o(I, null, P(n.notes, (d) => (r(), o("div", {
+          key: d.title,
+          class: h(`MNOTE ${d.status ? "m-" + d.status : ""}`),
+          onClick: (Ce) => d.handler()
         }, [
-          p("b", null, [
-            l.iconStart ? (o(), d("i", {
+          u("b", null, [
+            d.icon ? (r(), o("i", {
               key: 0,
-              class: u(l.iconStart)
-            }, null, 2)) : f("", !0),
-            C(" " + $(l.title), 1)
+              class: h(d.icon)
+            }, null, 2)) : m("", !0),
+            v(" " + p(d.title), 1)
           ]),
-          H(a, {
+          y(a, {
             autoDirection: "",
             math: ""
           }, {
-            default: k(() => [
-              C($(l.message), 1)
+            default: _(() => [
+              v(p(d.message), 1)
             ]),
             _: 2
-          }, 1024),
-          l.href ? (o(), d("a", {
-            key: 0,
-            href: l.href,
-            ref_for: !0,
-            ref: "a"
-          }, null, 8, oe)) : f("", !0)
-        ], 10, re))), 128))
+          }, 1024)
+        ], 10, V))), 128))
       ]),
       _: 1
     }, 8, ["name"])
   ], 512)), [
-    [q, s.notes.length]
+    [T, n.notes.length]
   ]);
 }
-const Ae = /* @__PURE__ */ M(se, [["render", ae], ["__scopeId", "data-v-4ae14643"]]);
-const le = {
+const X = /* @__PURE__ */ f(A, [["render", J], ["__scopeId", "data-v-d65c319c"]]), C = {
+  props: {
+    safe: Boolean,
+    warning: Boolean,
+    danger: Boolean
+  },
+  computed: {
+    statusClass() {
+      let e = "";
+      return this.safe && (e = "m-safe"), this.warning && (e = "m-warning"), this.danger && (e = "m-danger"), e;
+    }
+  }
+};
+const R = {
   name: "MButton",
+  mixins: [C],
   props: {
     bordered: {
       type: Boolean,
       default: !1
     },
-    circled: {
+    rounded: {
       type: Boolean,
       default: !1
     },
-    iconStart: {
-      type: String
-    },
-    iconEnd: {
-      type: String
-    },
-    to: {
-      type: String
+    noStyle: {
+      type: Boolean,
+      default: !1
     }
   },
   computed: {
     classes() {
       let e = ["MBUTTON"];
-      return this.bordered && e.push("m-bordered"), this.circled && e.push("m-circled"), e.join(" ");
-    }
-  },
-  methods: {
-    goToLink() {
-      this.to && this.$router.push(this.to);
+      return this.bordered && e.push("m-bordered"), this.rounded && e.push("m-rounded"), this.noStyle && e.push("m-no-style"), e.join(" ");
     }
   }
 };
-function de(e, t, n, r, s, i) {
-  return o(), d("button", {
-    class: u(i.classes),
-    onClick: t[0] || (t[0] = (a) => i.goToLink())
+function L(e, t, s, l, n, i) {
+  return r(), o("button", {
+    class: h([i.classes, e.statusClass].join(" "))
   }, [
-    n.iconStart ? (o(), d("i", {
-      key: 0,
-      class: u(n.iconStart)
-    }, null, 2)) : f("", !0),
-    _(e.$slots, "default", {}, void 0, !0),
-    n.iconEnd ? (o(), d("i", {
-      key: 1,
-      class: u(n.iconEnd)
-    }, null, 2)) : f("", !0)
+    c(e.$slots, "default", {}, void 0, !0)
   ], 2);
 }
-const ce = /* @__PURE__ */ M(le, [["render", de], ["__scopeId", "data-v-43064f99"]]);
-const ue = {
+const S = /* @__PURE__ */ f(R, [["render", L], ["__scopeId", "data-v-c64cd6cd"]]);
+const W = {
   name: "MMenu",
   props: {
-    blurred: {
-      type: Boolean,
-      default: !1
-    }
+    blurred: Boolean
   },
   data() {
     return {
@@ -303,30 +229,26 @@ const ue = {
     }
   }
 };
-function he(e, t, n, r, s, i) {
-  return s.shown ? (o(), d("div", {
+function q(e, t, s, l, n, i) {
+  return n.shown ? (r(), o("div", {
     key: 0,
-    onClick: t[0] || (t[0] = E((a) => i.hide(), ["self"])),
-    class: u(`MMENU ${n.blurred ? "m-blurred" : ""}`)
+    onClick: t[0] || (t[0] = g((a) => i.hide(), ["self"])),
+    class: h(`MMENU ${s.blurred ? "m-blurred" : ""}`)
   }, [
-    p("ul", {
+    u("ul", {
       ref: "menu",
-      style: B(`top: ${s.clientY}px; left: ${s.clientX}px`)
+      style: M(`top: ${n.clientY}px; left: ${n.clientX}px`)
     }, [
-      _(e.$slots, "default", {}, void 0, !0)
+      c(e.$slots, "default", {}, void 0, !0)
     ], 4)
-  ], 2)) : f("", !0);
+  ], 2)) : m("", !0);
 }
-const Oe = /* @__PURE__ */ M(ue, [["render", he], ["__scopeId", "data-v-668e5397"]]);
-const fe = {
+const U = /* @__PURE__ */ f(W, [["render", q], ["__scopeId", "data-v-eae02ace"]]);
+const Y = {
   name: "MMenuItem",
+  mixins: [C],
   props: {
-    iconStart: String,
-    iconEnd: String,
-    noHide: {
-      type: Boolean,
-      default: !1
-    }
+    noHide: Boolean
   },
   methods: {
     hideOnClickMethod() {
@@ -334,29 +256,21 @@ const fe = {
     }
   }
 };
-function me(e, t, n, r, s, i) {
-  return o(), d("li", {
-    class: u("MMENUITEM"),
+function z(e, t, s, l, n, i) {
+  return r(), o("li", {
+    class: h(`MMENUITEM ${e.statusClass}`),
     ref: "li",
     onClick: t[0] || (t[0] = (...a) => i.hideOnClickMethod && i.hideOnClickMethod(...a))
   }, [
-    n.iconStart ? (o(), d("i", {
-      key: 0,
-      class: u(n.iconStart)
-    }, null, 2)) : f("", !0),
-    _(e.$slots, "default", {}, void 0, !0),
-    n.iconEnd ? (o(), d("i", {
-      key: 1,
-      class: u(n.iconEnd)
-    }, null, 2)) : f("", !0)
-  ], 512);
+    c(e.$slots, "default", {}, void 0, !0)
+  ], 2);
 }
-const je = /* @__PURE__ */ M(fe, [["render", me], ["__scopeId", "data-v-a7dba239"]]);
-const pe = {
+const G = /* @__PURE__ */ f(Y, [["render", z], ["__scopeId", "data-v-453a5493"]]);
+const K = {
   name: "popup",
-  components: { MButton: ce },
+  components: { MButton: S },
   props: {
-    notRequired: {
+    required: {
       type: Boolean,
       default: !1
     },
@@ -377,66 +291,63 @@ const pe = {
     };
   },
   methods: {
-    show({ title: e, message: t, confirm: n, cancel: r }) {
-      return this.title = e || "", this.message = t || "", this.confirm = n || "", this.cancel = r || "", this.isOpen = !0, new Promise((s, i) => {
-        this.resolvePromise = s, this.rejectPromise = i;
+    show({ title: e, message: t, confirm: s, cancel: l }) {
+      return this.title = e || "", this.message = t || "", this.confirm = s || "", this.cancel = l || "", this.isOpen = !0, new Promise((n, i) => {
+        this.resolvePromise = n, this.rejectPromise = i;
       });
     },
     respond(e) {
       this.isOpen = !1, this.resolvePromise(e);
     },
     closeIfNotRequired() {
-      this.notRequired && (this.isOpen = !1);
+      this.required || (this.isOpen = !1);
     }
   }
-}, _e = { open: "" };
-function ye(e, t, n, r, s, i) {
-  const a = L("m-button");
-  return s.isOpen ? (o(), d("div", {
+}, Q = { open: "" };
+function Z(e, t, s, l, n, i) {
+  const a = b("m-button");
+  return n.isOpen ? (r(), o("div", {
     key: 0,
-    onClick: t[2] || (t[2] = E((...l) => i.closeIfNotRequired && i.closeIfNotRequired(...l), ["self"])),
-    class: u(`MPOPPUP ${n.blurred ? "m-blurred" : ""}`)
+    onClick: t[2] || (t[2] = g((...d) => i.closeIfNotRequired && i.closeIfNotRequired(...d), ["self"])),
+    class: h(`MPOPPUP ${s.blurred ? "m-blurred" : ""}`)
   }, [
-    p("dialog", _e, [
-      p("h3", null, $(s.title), 1),
-      p("p", null, $(s.message), 1),
-      _(e.$slots, "default", {}, void 0, !0),
-      p("section", null, [
-        s.cancel ? (o(), P(a, {
+    u("dialog", Q, [
+      u("b", null, p(n.title), 1),
+      u("p", null, p(n.message), 1),
+      c(e.$slots, "default", {}, void 0, !0),
+      u("section", null, [
+        n.cancel ? (r(), w(a, {
           key: 0,
           bordered: "",
-          onClick: t[0] || (t[0] = (l) => i.respond(!1))
+          onClick: t[0] || (t[0] = (d) => i.respond(!1))
         }, {
-          default: k(() => [
-            C($(s.cancel), 1)
+          default: _(() => [
+            v(p(n.cancel), 1)
           ]),
           _: 1
-        })) : f("", !0),
-        s.confirm ? (o(), P(a, {
+        })) : m("", !0),
+        n.confirm ? (r(), w(a, {
           key: 1,
-          onClick: t[1] || (t[1] = (l) => i.respond(!0))
+          onClick: t[1] || (t[1] = (d) => i.respond(!0))
         }, {
-          default: k(() => [
-            C($(s.confirm), 1)
+          default: _(() => [
+            v(p(n.confirm), 1)
           ]),
           _: 1
-        })) : f("", !0)
+        })) : m("", !0)
       ])
     ])
-  ], 2)) : f("", !0);
+  ], 2)) : m("", !0);
 }
-const Fe = /* @__PURE__ */ M(pe, [["render", ye], ["__scopeId", "data-v-042d5d5b"]]);
-const Me = {
+const ee = /* @__PURE__ */ f(K, [["render", Z], ["__scopeId", "data-v-3137cae4"]]);
+const te = {
   name: "MDrop",
   props: {
-    summary: {
-      type: String
-    },
     open: {
       type: Boolean,
       default: !1
     },
-    styled: {
+    noStyle: {
       type: Boolean,
       default: !1
     }
@@ -489,71 +400,74 @@ const Me = {
       }
     }
   }
-}, ge = ["open"], $e = { key: 0 }, ve = { ref: "content" };
-function Se(e, t, n, r, s, i) {
-  return o(), d("details", {
-    class: u(`MDROP ${n.styled ? "m-styled" : ""}`),
+}, se = ["open"], ne = { ref: "content" };
+function ie(e, t, s, l, n, i) {
+  return r(), o("details", {
+    class: h(`MDROP ${s.noStyle ? "m-no-style" : ""}`),
     ref: "details",
-    open: n.open
+    open: s.open
   }, [
-    p("summary", {
+    u("summary", {
       ref: "summary",
-      onClick: t[0] || (t[0] = E((...a) => i.handleClick && i.handleClick(...a), ["prevent"]))
+      onClick: t[0] || (t[0] = g((...a) => i.handleClick && i.handleClick(...a), ["prevent"]))
     }, [
-      n.summary ? (o(), d("span", $e, $(n.summary), 1)) : _(e.$slots, "summary", { key: 1 }, void 0, !0)
+      c(e.$slots, "summary", {}, void 0, !0)
     ], 512),
-    p("section", ve, [
-      _(e.$slots, "default", {}, void 0, !0)
+    u("section", ne, [
+      c(e.$slots, "default", {}, void 0, !0)
     ], 512)
-  ], 10, ge);
+  ], 10, se);
 }
-const Re = /* @__PURE__ */ M(Me, [["render", Se], ["__scopeId", "data-v-2a43c111"]]);
-const ke = {
+const re = /* @__PURE__ */ f(te, [["render", ie], ["__scopeId", "data-v-a0af22f5"]]);
+const oe = {
   name: "MSlider",
-  props: { ratio: String, pop: Boolean, infinite: Boolean, changeTime: String },
+  props: { ratio: String, infinite: Boolean, changeTime: String },
   data() {
     return {
       currentShown: 0,
-      child_count: 0
+      child_count: 0,
+      lastPosition: 0
     };
+  },
+  mounted() {
+    this.child_count = this.$refs.track.childElementCount, this.changeTime && setInterval(this.next, this.changeTime);
+  },
+  updated() {
+    this.child_count = this.$refs.track.childElementCount;
   },
   watch: {
     currentShown(e) {
-      var t;
-      (t = document.querySelector(".MSLIDER .current-shown")) == null || t.classList.remove("current-shown"), this.$refs.track.children[e].classList.add("current-shown");
+      this.$refs.slider.style.overflow = "hidden", this.$refs.slider.scrollLeft = e * this.$refs.track.firstElementChild.offsetWidth;
     }
-  },
-  mounted() {
-    var e;
-    (e = this.$refs.track.children[0]) == null || e.classList.add("current-shown"), this.child_count = this.$refs.track.childElementCount, this.changeTime && setInterval(this.next, this.changeTime);
-  },
-  updated() {
-    var e;
-    (e = this.$refs.track.children[0]) == null || e.classList.add("current-shown"), this.child_count = this.$refs.track.childElementCount;
   },
   methods: {
     next() {
-      this.currentShown < this.child_count - 1 ? this.currentShown++ : this.infinite && (this.currentShown = 0);
+      this.$refs.slider.style.overflow = "hidden", this.currentShown < this.child_count - 1 ? this.currentShown++ : this.currentShown = 0;
     },
     previous() {
-      this.currentShown > 0 ? this.currentShown-- : this.infinite && (this.currentShown = this.child_count - 1);
+      this.$refs.slider.style.overflow = "hidden", this.currentShown > 0 ? this.currentShown-- : this.currentShown = this.child_count - 1;
+    },
+    handleScroll(e) {
+      e.target.style.overflow === "hidden" ? e.target.scrollLeft == this.currentShown * this.$refs.track.firstElementChild.offsetWidth && (this.$refs.slider.style.overflow = "auto") : (this.lastPosition > this.$refs.slider.scrollLeft ? "backwards" : "forwards") === "forwards" ? this.next() : this.previous(), this.lastPosition = this.$refs.slider.scrollLeft;
     }
   }
 };
-function we(e, t, n, r, s, i) {
-  return o(), d("div", {
-    class: u(`MSLIDER ${n.pop ? "pop" : ""}`),
-    style: B(`--ratio: ${n.ratio}; --child-count: ${s.child_count}`)
+function ae(e, t, s, l, n, i) {
+  return r(), o("div", {
+    ref: "slider",
+    class: h("MSLIDER"),
+    style: M(`--ratio: ${s.ratio}; --child-count: ${n.child_count}`),
+    onScroll: t[0] || (t[0] = (a) => i.handleScroll(a))
   }, [
-    p("div", {
+    u("div", {
       ref: "track",
-      style: B(`--current-shown: ${s.currentShown}`)
+      style: M(`--current-shown: ${n.currentShown}`)
     }, [
-      _(e.$slots, "default", {}, void 0, !0)
+      c(e.$slots, "default", {}, void 0, !0)
     ], 4)
-  ], 6);
+  ], 36);
 }
-const Je = /* @__PURE__ */ M(ke, [["render", we], ["__scopeId", "data-v-60e80c60"]]), Ie = {
+const le = /* @__PURE__ */ f(oe, [["render", ae], ["__scopeId", "data-v-5b3daad8"]]), de = {
   name: "MForm",
   data() {
     return {
@@ -574,51 +488,44 @@ const Je = /* @__PURE__ */ M(ke, [["render", we], ["__scopeId", "data-v-60e80c60
       return this.invalids_IDs.length !== 0 && document.getElementById(this.invalids_IDs[0]).scrollIntoView(), this.invalids_IDs.length === 0;
     }
   }
-};
-function be(e, t, n, r, s, i) {
-  return o(), d("form", {
-    class: "MFORM",
-    onSubmit: t[0] || (t[0] = E(() => {
-    }, ["prevent"]))
-  }, [
-    _(e.$slots, "default")
-  ], 32);
+}, ue = { class: "MFORM" };
+function ce(e, t, s, l, n, i) {
+  return r(), o("form", ue, [
+    c(e.$slots, "default")
+  ]);
 }
-const Xe = /* @__PURE__ */ M(Ie, [["render", be]]);
-const xe = {
+const he = /* @__PURE__ */ f(de, [["render", ce]]);
+const fe = {
   name: "MINPUT",
   data() {
     return {
       firstInput: !1,
       patternMatch: this.pattern ? this.pattern.test(this.modelValue) : !0,
       ar: /[\u0621-\u064A]/,
-      dir: "ltr"
+      dir: ""
     };
   },
   inheritAttrs: !1,
   props: {
-    modelValue: String,
-    id: {
-      type: String,
-      required: !0
-    },
+    modelValue: String | Number,
     pattern: RegExp,
     invalidMessage: String,
     validMessage: String,
-    autoDirection: {
-      type: Boolean,
-      default: !1
-    },
+    autoDirection: Boolean,
+    bordered: Boolean,
+    id: { type: String, required: !0 },
     type: {
       type: String,
       default: "text",
-      validator: (e) => ["text", "email", "password", "number", "date"].includes(e)
+      validator: (e) => ["text", "email", "password", "number", "date", "url"].includes(
+        e
+      )
     }
   },
   watch: {
     modelValue(e) {
-      var t, n;
-      !this.pattern || (this.pattern.test(e) ? (this.patternMatch = !0, (t = this.formParent) == null || t.removeFromInvalids(this.id)) : (this.patternMatch = !1, (n = this.formParent) == null || n.registerToInvalids(this.id)));
+      var t, s;
+      !this.pattern || (this.pattern.test(e) ? (this.patternMatch = !0, (t = this.formParent) == null || t.removeFromInvalids(this.id)) : (this.patternMatch = !1, (s = this.formParent) == null || s.registerToInvalids(this.id)));
     }
   },
   computed: {
@@ -641,87 +548,93 @@ const xe = {
       return this.patternMatch;
     }
   }
-}, Ce = (e) => (W("data-v-fdf58daa"), e = e(), Y(), e), Ee = { class: "MINPUT" }, Te = ["dir", "id", "type", "value"], He = /* @__PURE__ */ Ce(() => /* @__PURE__ */ p("div", null, null, -1)), Be = {
+}, pe = (e) => (E("data-v-10fb8f8b"), e = e(), N(), e), me = ["dir", "type", "value"], _e = /* @__PURE__ */ pe(() => /* @__PURE__ */ u("div", null, null, -1)), ve = {
   key: 0,
   class: "m-invalid"
-}, De = {
+}, $e = {
   key: 1,
   class: "m-valid"
 };
-function Pe(e, t, n, r, s, i) {
-  return o(), d("div", Ee, [
-    _(e.$slots, "start", {}, void 0, !0),
-    p("input", V({
-      dir: s.dir,
-      ref: "input"
-    }, e.$attrs, {
-      id: n.id,
-      type: n.type,
-      value: n.modelValue,
-      onInput: t[0] || (t[0] = (a) => {
-        e.$emit("update:modelValue", a.currentTarget.value), n.autoDirection && n.type == "text" && i.adjustDirection(), s.firstInput = !0;
-      })
-    }), null, 16, Te),
-    He,
-    _(e.$slots, "end", {}, void 0, !0),
-    H(U, { name: "fade" }, {
-      default: k(() => [
-        n.pattern && s.firstInput ? (o(), d(N, { key: 0 }, [
-          !s.patternMatch && n.invalidMessage ? (o(), d("span", Be, $(n.invalidMessage), 1)) : s.patternMatch && n.validMessage ? (o(), d("span", De, $(n.validMessage), 1)) : f("", !0)
-        ], 64)) : f("", !0)
-      ]),
-      _: 1
-    })
-  ]);
+function Me(e, t, s, l, n, i) {
+  return r(), o("div", {
+    class: h(`MINPUT ${s.bordered ? "m-bordered" : ""}`)
+  }, [
+    u("div", null, [
+      c(e.$slots, "start", {}, void 0, !0),
+      u("input", D({
+        dir: n.dir,
+        ref: "input"
+      }, e.$attrs, {
+        type: s.type,
+        value: s.modelValue,
+        onInput: t[0] || (t[0] = (a) => {
+          e.$emit("update:modelValue", a.currentTarget.value), s.autoDirection && s.type == "text" && i.adjustDirection(), n.firstInput = !0;
+        })
+      }), null, 16, me),
+      _e,
+      c(e.$slots, "end", {}, void 0, !0)
+    ]),
+    s.pattern && n.firstInput ? (r(), o(I, { key: 0 }, [
+      !n.patternMatch && s.invalidMessage ? (r(), o("span", ve, p(s.invalidMessage), 1)) : n.patternMatch && s.validMessage ? (r(), o("span", $e, p(s.validMessage), 1)) : m("", !0)
+    ], 64)) : m("", !0)
+  ], 2);
 }
-const qe = /* @__PURE__ */ M(xe, [["render", Pe], ["__scopeId", "data-v-fdf58daa"]]);
-var g, w, h;
-const y = class {
-  constructor(t) {
-    b(this, "name");
-    b(this, "radius");
-    b(this, "fonts");
-    x(this, h, { main: [], accent: [], onAccent: [], text: [] });
-    if (this.name = t.name, this.radius = t.radius || 0, this.fonts = t.fonts || { en: "", ar: "" }, T(this, h, Q(t.colors)), c(y, w)[t.name] = this, !document.getElementById("M_THEME")) {
-      let r = document.createElement("style");
-      r.id = "M_THEME", document.body.appendChild(r);
+const ge = /* @__PURE__ */ f(fe, [["render", Me], ["__scopeId", "data-v-10fb8f8b"]]), ye = {
+  name: "MSection",
+  props: {
+    forward: {
+      type: Boolean,
+      default: !1
     }
-    T(y, g, document.getElementById("M_THEME"));
+  },
+  mounted() {
+    new IntersectionObserver((t) => {
+      t.forEach((s) => {
+        s.isIntersecting ? s.target.setAttribute("data-m-visible", !0) : this.forward || s.target.setAttribute("data-m-visible", !1);
+      });
+    }).observe(this.$refs.section);
   }
-  static apply(t) {
-    c(y, w)[t].apply();
-  }
-  apply() {
-    c(y, g).innerHTML = "", document.body.className = document.body.className.split(" ").filter((t) => !t.includes("m-theme")).join(" "), document.body.classList.add(`m-theme-${this.name}`), c(y, g).innerHTML += `.m-theme-${this.name}{ --m-ui-radius: ${this.radius}px }`, c(y, g).innerHTML += `.m-theme-${this.name}{ --m-font-en: ${this.fonts.en} }`, this.fonts.ar && (c(y, g).innerHTML += `.m-theme-${this.name}{ --m-font-ar: ${this.fonts.ar} }`);
-    for (let t in c(this, h))
-      c(y, g).innerHTML += `.m-theme-${this.name}{
-         --m-color-${t}-h: ${c(this, h)[t][0]};
-         --m-color-${t}-s: ${c(this, h)[t][1]}%;
-         --m-color-${t}-l: ${c(this, h)[t][2]}%;
-         --m-color-${t}-a: ${c(this, h)[t][3]};
-         --m-color-${t}: hsla(${c(this, h)[t][0]},
-          ${c(this, h)[t][1]}%,
-          ${c(this, h)[t][2]}%,
-          ${c(this, h)[t][3]});
-       }`;
-  }
+}, we = {
+  ref: "section",
+  class: "MSECTION"
 };
-let S = y;
-g = new WeakMap(), w = new WeakMap(), h = new WeakMap(), x(S, g, void 0), x(S, w, {});
-const Ve = (e) => {
-  e.config.globalProperties.$MTheme = S;
+function be(e, t, s, l, n, i) {
+  return r(), o("section", we, [
+    c(e.$slots, "default")
+  ], 512);
+}
+const Ie = /* @__PURE__ */ f(ye, [["render", be]]);
+let $ = {
+  MNotes: X,
+  MButton: S,
+  MP: x,
+  MMenu: U,
+  MMenuItem: G,
+  MPoppup: ee,
+  MDrop: re,
+  MSlider: le,
+  MForm: he,
+  MInput: ge,
+  MSection: Ie
+};
+function xe(e, t) {
+  return t in e;
+}
+const ke = (e) => {
+  for (let t in $)
+    xe($, t) && e.component(t, $[t]);
 };
 export {
-  ce as MButton,
-  Re as MDrop,
-  Xe as MForm,
-  qe as MInput,
-  Oe as MMenu,
-  je as MMenuItem,
-  Ae as MNotes,
-  ne as MP,
-  Fe as MPoppup,
-  Je as MSlider,
-  S as MTheme,
-  Ve as install
+  S as MButton,
+  re as MDrop,
+  he as MForm,
+  ge as MInput,
+  U as MMenu,
+  G as MMenuItem,
+  X as MNotes,
+  x as MP,
+  ee as MPoppup,
+  Ie as MSection,
+  le as MSlider,
+  ke as install
 };

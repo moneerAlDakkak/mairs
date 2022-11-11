@@ -124,15 +124,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../m" as *;
+@use "../../sass" as *;
 
 p {
-  &.m-bordered {
+  &.m-bordered, &.m-dashed {
     border-radius: $ui_radius;
-    background: m-change-opacity("accent", -0.9);
+    border-radius: min($ui_radius, 20px);
+    background: m-adjust-color("accent", $alpha: -0.9);
     border: 1px solid $color_accent;
+    padding: 20px 22px;
     &.m-dashed {
-      border: 1px dashed $color_accent;
+      border-style: dashed;
     }
   }
 }

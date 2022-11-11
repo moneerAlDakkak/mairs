@@ -1,5 +1,5 @@
 <template>
-  <form class="MFORM" @submit.prevent>
+  <form class="MFORM">
     <slot></slot>
   </form>
 </template>
@@ -9,12 +9,12 @@ export default {
   name: "MForm",
   data() {
     return {
-      invalids_IDs: [] // Only MInputs that support pattern
+      invalids_IDs: [], // Only MInputs that support pattern
     };
   },
   methods: {
     registerToInvalids(inputId) {
-      if(!this.invalids_IDs.includes(inputId)) {
+      if (!this.invalids_IDs.includes(inputId)) {
         this.invalids_IDs.push(inputId);
       }
     },
@@ -25,7 +25,7 @@ export default {
       );
     },
     checkValidation() {
-      if(this.invalids_IDs.length !== 0) {
+      if (this.invalids_IDs.length !== 0) {
         document.getElementById(this.invalids_IDs[0]).scrollIntoView();
       }
       return this.invalids_IDs.length === 0;

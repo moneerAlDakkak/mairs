@@ -1,12 +1,11 @@
 <template>
   <details
-    :class="`MDROP ${styled ? 'm-styled' : ''}`"
+    :class="`MDROP ${noStyle ? 'm-no-style' : ''}`"
     ref="details"
     :open="open"
   >
     <summary ref="summary" @click.prevent="handleClick">
-      <span v-if="summary">{{ summary }}</span>
-      <slot name="summary" v-else></slot>
+      <slot name="summary"></slot>
     </summary>
     <section ref="content">
       <slot></slot>
@@ -18,14 +17,11 @@
 export default {
   name: "MDrop",
   props: {
-    summary: {
-      type: String,
-    },
     open: {
       type: Boolean,
       default: false,
     },
-    styled: {
+    noStyle: {
       type: Boolean,
       default: false,
     },
@@ -133,7 +129,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../m" as *;
+@use "../../sass" as *;
 details {
   summary {
     cursor: pointer;
@@ -142,16 +138,16 @@ details {
   section {
     overflow: hidden;
   }
-  &.m-styled {
+  &:not(.m-no-style) {
+    background-color: $color_box;
+    border-radius: min($ui_radius, 20px);
     summary {
-      background: m-change-opacity("accent", -0.6);
-      padding: 10px;
-      border-radius: $ui_radius $ui_radius 0 0;
+      padding: 10px 20px;
     }
     section {
-      background: m-change-opacity("accent", -0.8);
-      border-radius: 0 0 $ui_radius $ui_radius;
-      padding: 0 10px;
+      background: m-contrast("box", 5%);
+      border-radius: 0 0 min($ui_radius, 20px) min($ui_radius, 20px);
+      padding: 0 20px;
     }
   }
 }

@@ -1,21 +1,16 @@
 <template>
-  <li :class="`MMENUITEM`" ref="li" @click="hideOnClickMethod">
-    <i v-if="iconStart" :class="iconStart"></i>
+  <li :class="`MMENUITEM ${statusClass}`" ref="li" @click="hideOnClickMethod">
     <slot></slot>
-    <i v-if="iconEnd" :class="iconEnd"></i>
   </li>
 </template>
 
 <script>
+import status from "../mixins/status";
 export default {
   name: "MMenuItem",
+  mixins: [status],
   props: {
-    iconStart: String,
-    iconEnd: String,
-    noHide: {
-      type: Boolean,
-      default: false,
-    },
+    noHide: Boolean,
   },
   methods: {
     hideOnClickMethod() {
@@ -28,19 +23,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../m" as *;
+@use "../../sass" as *;
 
 li {
   display: flex;
   align-items: center;
+  align-content: center;
   gap: 10px;
   color: $color_text;
-  margin: 2px 0;
-  padding: 10px;
-  font-size: 0.9em;
+  padding: 14px;
   white-space: pre;
-  &:not(&:last-of-type) {
-    border-bottom: 1px solid m-change-opacity("text", -0.94);
+  min-width: 200px;
+  background-color: $color_box;
+  transition: background-color 0.2s ease;
+  // &:first-of-type {
+  //   border-radius: $ui_radius $ui_radius 0 0;
+  // }
+  // &:last-of-type {
+  //   border-radius: 0 0 $ui_radius $ui_radius;
+  // }
+  &:hover {
+    background: m-contrast("box", 5%);
+  }
+  &.m-safe {
+    color: $color_safe;
+  }
+  &.m-warning {
+    color: $color_warning;
+  }
+  &.m-danger {
+    color: $color_danger;
   }
 }
 </style>

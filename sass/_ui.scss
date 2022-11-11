@@ -1,5 +1,3 @@
-@use "./vars" as *;
-
 @mixin padding-start($amount) {
   padding-left: $amount;
   &:is(html[lang="ar"] &),

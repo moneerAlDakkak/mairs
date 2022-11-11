@@ -14,10 +14,7 @@
 export default {
   name: "MMenu",
   props: {
-    blurred: {
-      type: Boolean,
-      default: false,
-    },
+    blurred: Boolean,
   },
   data() {
     return {
@@ -49,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../m" as *;
+@use "../../sass" as *;
 
 div.MMENU {
   z-index: 10;
@@ -63,15 +60,18 @@ div.MMENU {
     background: rgba(0, 0, 0, 0.4);
   }
   ul {
-    box-shadow: 0 1px 4px 0 m-change-opacity("text", -0.8);
+    box-shadow: 0 0 2px 0 m-adjust-color("text", $alpha: -0.8);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 1px;
+    background-color: $color_main;
     list-style: none;
     position: fixed;
-    background-color: $color_main;
     color: $color_text;
-    text-align: $ui_direction;
-    border-radius: min($ui_radius, 20px);
     margin: 0;
     padding: 0;
+    border-radius: min($ui_radius, 20px);
+    overflow: hidden;
   }
 }
 </style>

@@ -1,6 +1,4 @@
 // // Vue Animations
-@use "./vars" as *;
-
 @mixin m-animation-slide($name, $x: 0, $y: 0, $duration: 0.6s, $timing: ease) {
   .#{$name}-enter-from,
   .#{$name}-leave-to {

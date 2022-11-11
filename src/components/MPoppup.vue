@@ -5,7 +5,7 @@
     :class="`MPOPPUP ${blurred ? 'm-blurred' : ''}`"
   >
     <dialog open>
-      <h3>{{ title }}</h3>
+      <b>{{ title }}</b>
       <p>
         {{ message }}
       </p>
@@ -28,7 +28,7 @@ export default {
   name: "popup",
   components: { MButton },
   props: {
-    notRequired: {
+    required: {
       type: Boolean,
       default: false,
     },
@@ -66,7 +66,7 @@ export default {
       this.resolvePromise(decision);
     },
     closeIfNotRequired() {
-      if (this.notRequired) {
+      if (!this.required) {
         this.isOpen = false;
       }
     },
@@ -75,7 +75,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@use "../m" as *;
+@use "../../sass" as *;
 div {
   z-index: 10;
   position: fixed;
@@ -91,7 +91,7 @@ div {
     backdrop-filter: blur(6px);
   }
   dialog {
-    background-color: $color_main;
+    background-color: $color_box;
     color: $color_text;
     padding: 20px 26px;
     font-size: 1em;
@@ -100,14 +100,16 @@ div {
     border-radius: min($ui_radius, 20px);
     border: none;
     outline: none;
-    box-shadow: 0 1px 4px 0 m-change-opacity("text", -0.8);
+    b {
+      font-size: 1.2em;
+    }
     p {
       width: 2rem 0;
     }
     section {
       display: flex;
       flex-flow: row wrap;
-      justify-content: space-evenly;
+      gap: 20px;
       margin: 20px 0 0;
     }
   }
