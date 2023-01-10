@@ -1,0 +1,15 @@
+@use "../../dist/style.css";
+@forward "./index";
+@use "./index" as *;
+
+body {
+  font-family: $font_en1;
+  &:is(html[lang="ar"]) {
+    font-family: $font_ar1, $font_en1;
+  }
+  background-color: $color_main;
+  color: $color_text;
+  @include setColor("safe", $color_safe);
+  @include setColor("warning", $color_warning);
+  @include setColor("danger", $color_danger);
+}

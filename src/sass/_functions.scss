@@ -1,0 +1,57 @@
+@use "sass:math";
+
+@function strip-units($number) {
+  @return math.div($number, ($number * 0 + 1));
+}
+
+@function m-adjust-color(
+  $colorName,
+  $hue: 0,
+  $saturation: 0%,
+  $lightness: 0%,
+  $alpha: 0
+) {
+  // Original
+  $h: var(--m-color-#{$colorName}-h);
+  $s: var(--m-color-#{$colorName}-s);
+  $l: var(--m-color-#{$colorName}-l);
+  $a: var(--m-color-#{$colorName}-a);
+  // New
+  $NH: calc($h + $hue);
+  $NS: calc($s + $saturation);
+  $NL: calc($l + $lightness);
+  $NA: calc($a + $alpha);
+
+  @return hsla($NH, $NS, $NL, $NA);
+}
+
+@function m-change-color(
+  $colorName,
+  $hue: var(--m-color-#{$colorName}-h),
+  $saturation: var(--m-color-#{$colorName}-s),
+  $lightness: var(--m-color-#{$colorName}-l),
+  $alpha: var(--m-color-#{$colorName}-a)
+) {
+  @return hsla($hue, $saturation, $lightness, $alpha);
+}
+
+@function m-darken($colorName, $amount) {
+  @return m-adjust-color($colorName, $lightness: -1 * $amount);
+}
+
+@function m-lighten($colorName, $amount) {
+  @return m-adjust-color($colorName, $lightness: $amount);
+}
+
+@function m-contrast($colorName, $amount, $ref: "main") {
+  $main_l: var(--m-color-#{$ref}-l);
+  $sign: clamp(-1%, calc(($main_l - 50%) * 1000), 1%);
+  $amount: calc(strip-units($amount) * $sign);
+
+  $h: var(--m-color-#{$colorName}-h);
+  $s: var(--m-color-#{$colorName}-s);
+  $l: var(--m-color-#{$colorName}-l);
+  $a: var(--m-color-#{$colorName}-a);
+
+  @return hsla($h, $s, calc($l + (-1 * $amount)), $a);
+}

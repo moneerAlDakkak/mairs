@@ -1,14 +1,16 @@
 {
   "name": "mairs",
-  "author": "Moneer AlDakkak",
-  "version": "2.0.0",
-  "type": "module",
+  "version": "2.1.1",
+  "author": {
+    "name": "Moneer AlDakkak",
+    "email": "moneer.dakkak@gmail.com"
+  },
+  "license": "MIT",
   "homepage": "https://mairs.moneeraldakkak.com/",
   "repository": {
     "type": "git",
     "url": "https://github.com/moneerAlDakkak/mairs.git"
   },
-  "license": "MIT",
   "keywords": [
     "vue",
     "nuxt",
@@ -25,35 +27,54 @@
     "dropdown",
     "m-labs"
   ],
-  "files": [
-    "dist",
-    "sass",
-    "README.md"
-  ],
-  "main": "./dist/mairs.umd.js",
-  "module": "./dist/mairs.es.js",
+  "type": "module",
+  "main": "./dist/mairs.umd.cjs",
+  "module": "./dist/mairs.js",
+  "types": "dist/index.d.ts",
+  "utils": "src/sass/_index.scss",
+  "style": "src/sass/_m.scss",
   "exports": {
     ".": {
-      "import": "./dist/mairs.es.js",
-      "require": "./dist/mairs.umd.js"
+      "import": "./dist/mairs.js",
+      "require": "./dist/mairs.umd.cjs",
+      "types": "./dist/index.d.ts"
     },
-    "./utils": "./sass/_index.scss",
-    "./style": "./sass/_m.scss"
+    "./style": "./src/sass/_m.scss",
+    "./utils": "./src/sass/_index.scss",
+    "./components": "./src/components/index.ts",
+    "./components/*": "./src/components/*.vue",
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "components": [
+        "dist/components/index.d.ts"
+      ],
+      "components/*": [
+        "dist/components/*.vue.d.ts"
+      ]
+    }
   },
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
   "dependencies": {
     "sass": "^1.54.5",
     "vue": "^3.2.41"
   },
   "devDependencies": {
     "@types/node": "^18.7.13",
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@vitejs/plugin-vue": "^3.2.0",
     "typescript": "^4.6.4",
-    "vite": "^3.0.7",
-    "vue-tsc": "^0.39.5"
+    "vite": "^3.2.3",
+    "vite-plugin-dts": "^1.7.1",
+    "vue-tsc": "^1.0.9"
   }
 }

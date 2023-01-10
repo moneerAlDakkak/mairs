@@ -1,0 +1,57 @@
+@use "sass:math";
+@use "sass:meta";
+@use "./functions" as *;
+
+// Fonts
+$font_en1: var(--m-font-en1);
+$font_en2: var(--m-font-en2);
+$font_ar1: var(--m-font-ar1);
+$font_ar2: var(--m-font-ar2);
+/// UI
+$ui_radius: var(--m-ui-radius);
+$ui_grid: var(--m-ui-grid);
+// Colors
+$color_main: var(--m-color-main);
+$color_accent: var(--m-color-accent);
+$color_text: var(--m-color-text);
+$color_onAccent: var(--m-color-onAccent);
+$color_box: var(--m-color-box);
+// Status colors
+$color_safe: #008450;
+$color_warning: #d3a200;
+$color_danger: #b81d13;
+// Gradients
+$gradient_1: var(--m-gradient-gradient1);
+$gradient_2: var(--m-gradient-gradient2);
+$gradient_3: var(--m-gradient-gradient3);
+
+@mixin setColor($name, $color) {
+  & {
+    --m-color-#{$name}: #{$color};
+    --m-color-#{$name}-h: #{strip-units(hue($color))};
+    --m-color-#{$name}-s: #{saturation($color)};
+    --m-color-#{$name}-l: #{lightness($color)};
+    --m-color-#{$name}-a: #{alpha($color)};
+  }
+}
+
+@mixin setupTheme($name, $colors: (), $gradients: (), $fonts: (), $ui: ()) {
+  &.m-theme-#{$name} {
+    // Color variables :
+    @each $colorName, $val in $colors {
+      @include setColor($colorName, $val);
+    }
+    // Gradients variables :
+    @each $gradientName, $val in $gradients {
+      --m-gradient-#{$gradientName}: #{$val};
+    }
+    // Font variables
+    @each $fontName, $val in $fonts {
+      --m-font-#{$fontName}: #{meta.inspect($val)};
+    }
+    // UI variables
+    @each $propName, $val in $ui {
+      --m-ui-#{$propName}: #{$val};
+    }
+  }
+}
