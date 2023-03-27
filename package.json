@@ -1,0 +1,80 @@
+{
+  "name": "mairs",
+  "version": "2.2.0",
+  "author": {
+    "name": "Moneer AlDakkak",
+    "email": "moneer.dakkak@gmail.com"
+  },
+  "license": "MIT",
+  "homepage": "https://mairs.moneeraldakkak.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moneerAlDakkak/mairs.git"
+  },
+  "keywords": [
+    "vue",
+    "nuxt",
+    "sass",
+    "components",
+    "components library",
+    "vue framework",
+    "styling",
+    "library",
+    "theming",
+    "dark-mode",
+    "poppup",
+    "mathjax",
+    "dropdown",
+    "m-labs"
+  ],
+  "type": "module",
+  "main": "./dist/mairs.umd.cjs",
+  "module": "./dist/mairs.js",
+  "types": "dist/index.d.ts",
+  "utils": "src/sass/_index.scss",
+  "style": "src/sass/_m.scss",
+  "exports": {
+    ".": {
+      "import": "./dist/mairs.js",
+      "require": "./dist/mairs.umd.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./style": "./src/sass/_m.scss",
+    "./utils": "./src/sass/_index.scss",
+    "./components": "./src/components/index.ts",
+    "./components/*": "./src/components/*.vue",
+    "./*": "./*"
+  },
+  "typesVersions": {
+    "*": {
+      "components": [
+        "dist/components/index.d.ts"
+      ],
+      "components/*": [
+        "dist/components/*.vue.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "dependencies": {
+    "sass": "^1.54.5",
+    "vue": "^3.2.41"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.3",
+    "vite-plugin-dts": "^1.7.1",
+    "vue-tsc": "^1.0.9"
+  }
+}

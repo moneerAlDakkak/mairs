@@ -1,0 +1,23 @@
+// // Vue Animations
+@mixin m-animation-slide($name, $x: 0, $y: 0, $duration: 0.6s, $timing: ease) {
+  .#{$name}-enter-from,
+  .#{$name}-leave-to {
+    transform: translate($x, $y);
+  }
+  .#{$name}-enter-active,
+  .#{$name}-leave-active {
+    transition: transform $duration $timing;
+  }
+}
+
+@mixin m-animation-fade($name, $x: 0, $y: 0, $duration: 0.2s, $timing: ease) {
+  .#{$name}-enter-from,
+  .#{$name}-leave-to {
+    transform: translate($x, $y);
+    opacity: 0;
+  }
+  .#{$name}-enter-active,
+  .#{$name}-leave-active {
+    transition: opacity $duration $timing, transform $duration $timing;
+  }
+}

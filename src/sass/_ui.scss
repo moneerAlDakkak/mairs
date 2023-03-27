@@ -1,0 +1,57 @@
+@mixin m-padding-start($amount) {
+  padding-left: $amount;
+  &:is(html[lang="ar"] &),
+  &:is(html[dir="rtl"] &) {
+    padding-right: $amount;
+    padding-left: 0;
+  }
+}
+
+@mixin m-padding-end($amount) {
+  padding-right: $amount;
+  &:is(html[lang="ar"] &),
+  &:is(html[dir="rtl"] &) {
+    padding-left: $amount;
+    padding-right: 0;
+  }
+}
+
+@mixin m-margin-start($amount) {
+  margin-left: $amount;
+  &:is(html[lang="ar"] &),
+  &:is(html[dir="rtl"] &) {
+    margin-right: $amount;
+    margin-left: 0;
+  }
+}
+
+@mixin m-margin-end($amount) {
+  margin-right: $amount;
+  &:is(html[lang="ar"] &),
+  &:is(html[dir="rtl"] &) {
+    margin-left: $amount;
+    margin-right: 0;
+  }
+}
+
+@mixin m-horizon-start($amount) {
+  left: $amount;
+  &:is(html[lang="ar"] &),
+  &:is(html[dir="rtl"] &) {
+    right: $amount;
+    left: auto;
+  }
+}
+
+@mixin m-horizon-end($amount) {
+  right: $amount;
+  &:is(html[lang="ar"] &),
+  &:is(html[dir="rtl"] &) {
+    left: $amount;
+    right: auto;
+  }
+}
+
+@function m-ui-grid($n: 1, $m: 0px) {
+  @return calc(var(--m-ui-grid, 16px) * $n + $m);
+}
