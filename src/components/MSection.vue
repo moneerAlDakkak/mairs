@@ -10,7 +10,7 @@ export default {
 };
 </script>
 <script lang="ts" setup>
-import { withDefaults, onMounted, ref } from "vue";
+import { withDefaults, onMounted, ref, onUnmounted } from "vue";
 // Define props
 const props = withDefaults(
   defineProps<{
@@ -22,22 +22,24 @@ const props = withDefaults(
 // template refs
 let sectionEl: any = ref(null);
 
+// Observer setup
+let observer: IntersectionObserver;
+
 onMounted(() => {
-  let observer = new IntersectionObserver(
+  observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
+        const ratio = Math.round(entry.intersectionRatio * 10);
+        const percentage = ratio * 10;
         if (entry.isIntersecting) {
-          entry.target.setAttribute(
-            "data-m-visible",
-            `${entry.intersectionRatio * 100}%`
+          entry.target.setAttribute("data-m-visible", `${percentage}%`);
+          (entry.target as HTMLElement).style.setProperty(
+            "--m-visibility-ratio",
+            `${percentage}%`
           );
         } else {
           if (!props.forward) entry.target.removeAttribute("data-m-visible");
         }
-        (entry.target as HTMLElement).style.setProperty(
-          "--m-visibility-ratio",
-          `${entry.intersectionRatio * 100}%`
-        );
       });
     },
     {
@@ -45,5 +47,9 @@ onMounted(() => {
     }
   );
   observer.observe(sectionEl.value);
+});
+
+onUnmounted(() => {
+  observer.unobserve(sectionEl.value);
 });
 </script>
