@@ -51,7 +51,3 @@
     right: auto;
   }
 }
-
-@function m-ui-grid($n: 1, $m: 0px) {
-  @return calc(var(--m-ui-grid, 16px) * $n + $m);
-}

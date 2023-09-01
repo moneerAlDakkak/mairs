@@ -22,12 +22,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
     autoDirection: {
         type: BooleanConstructor;
         required: false;
-        default: boolean;
     };
     bordered: {
         type: BooleanConstructor;
         required: false;
-        default: boolean;
     };
     type: {
         type: StringConstructor;
@@ -42,8 +40,16 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
+    shrinked: {
+        type: BooleanConstructor;
+        required: false;
+    };
     transformer: {
         type: FunctionConstructor;
+        required: false;
+    };
+    unstyled: {
+        type: BooleanConstructor;
         required: false;
     };
 }, {
@@ -86,12 +92,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
     autoDirection: {
         type: BooleanConstructor;
         required: false;
-        default: boolean;
     };
     bordered: {
         type: BooleanConstructor;
         required: false;
-        default: boolean;
     };
     type: {
         type: StringConstructor;
@@ -106,8 +110,16 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
+    shrinked: {
+        type: BooleanConstructor;
+        required: false;
+    };
     transformer: {
         type: FunctionConstructor;
+        required: false;
+    };
+    unstyled: {
+        type: BooleanConstructor;
         required: false;
     };
 }>> & {
@@ -116,6 +128,8 @@ declare const _sfc_main: import("vue").DefineComponent<{
     autoDirection: boolean;
     bordered: boolean;
     type: string;
+    unstyled: boolean;
     disabled: boolean;
+    shrinked: boolean;
 }>;
 export default _sfc_main;

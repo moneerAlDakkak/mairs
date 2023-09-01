@@ -27,9 +27,6 @@ function removeFromInvalids(inputId: string) {
   );
 }
 function checkValidation() {
-  if (invalids_IDs.length !== 0) {
-    document.getElementById(invalids_IDs[0])?.scrollIntoView();
-  }
   return invalids_IDs.length === 0;
 }
 

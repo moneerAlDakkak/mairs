@@ -50,6 +50,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  observer.unobserve(sectionEl.value);
+  observer.disconnect();
 });
 </script>

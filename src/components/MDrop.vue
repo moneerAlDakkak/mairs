@@ -1,9 +1,5 @@
 <template>
-  <details
-    :class="`MDROP${noStyle ? ' m-no-style' : ''}`"
-    ref="detailsEl"
-    :open="open"
-  >
+  <details :class="{ MDROP: !unstyled }" ref="detailsEl" :open="open">
     <summary ref="summary" @click.prevent="handleClick">
       <slot name="summary"></slot>
     </summary>
@@ -25,7 +21,7 @@ import { withDefaults, ref } from "vue";
 const props = withDefaults(
   defineProps<{
     open?: boolean;
-    noStyle?: boolean;
+    unstyled?: boolean;
   }>(),
   {}
 );
@@ -145,16 +141,16 @@ details {
   section {
     overflow: hidden;
   }
-  &:not(.m-no-style) {
+  &.MDROP {
     background-color: $color_box;
     border-radius: min($ui_radius, 20px);
     summary {
-      padding: m-ui-grid();
+      padding: 1rem;
     }
     section {
       background: m-contrast("box", 5%);
       border-radius: 0 0 min($ui_radius, 20px) min($ui_radius, 20px);
-      padding: 0 m-ui-grid();
+      padding: 0 1rem;
     }
   }
 }

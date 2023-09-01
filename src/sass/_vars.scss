@@ -9,7 +9,6 @@ $font_ar1: var(--m-font-ar1);
 $font_ar2: var(--m-font-ar2);
 /// UI
 $ui_radius: var(--m-ui-radius);
-$ui_grid: var(--m-ui-grid);
 // Colors
 $color_main: var(--m-color-main);
 $color_accent: var(--m-color-accent);
@@ -52,6 +51,58 @@ $gradient_3: var(--m-gradient-gradient3);
     // UI variables
     @each $propName, $val in $ui {
       --m-ui-#{$propName}: #{$val};
+    }
+  }
+}
+
+@mixin setupDynamicTheme(
+  $name,
+  $colors: (),
+  $gradients: (),
+  $fonts: (),
+  $ui: ()
+) {
+  @if $name == dark {
+    @media (prefers-color-scheme: dark) {
+      & {
+        // Color variables :
+        @each $colorName, $val in $colors {
+          @include setColor($colorName, $val);
+        }
+        // Gradients variables :
+        @each $gradientName, $val in $gradients {
+          --m-gradient-#{$gradientName}: #{$val};
+        }
+        // Font variables
+        @each $fontName, $val in $fonts {
+          --m-font-#{$fontName}: #{meta.inspect($val)};
+        }
+        // UI variables
+        @each $propName, $val in $ui {
+          --m-ui-#{$propName}: #{$val};
+        }
+      }
+    }
+  } @else if $name == light {
+    @media (prefers-color-scheme: light) {
+      & {
+        // Color variables :
+        @each $colorName, $val in $colors {
+          @include setColor($colorName, $val);
+        }
+        // Gradients variables :
+        @each $gradientName, $val in $gradients {
+          --m-gradient-#{$gradientName}: #{$val};
+        }
+        // Font variables
+        @each $fontName, $val in $fonts {
+          --m-font-#{$fontName}: #{meta.inspect($val)};
+        }
+        // UI variables
+        @each $propName, $val in $ui {
+          --m-ui-#{$propName}: #{$val};
+        }
+      }
     }
   }
 }

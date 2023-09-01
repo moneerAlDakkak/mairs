@@ -141,7 +141,7 @@ p {
     border-radius: min($ui_radius, 20px);
     background: m-adjust-color("accent", $alpha: -0.9);
     border: 1px solid $color_accent;
-    padding: m-ui-grid();
+    padding: 1rem;
     &.m-dashed {
       border-style: dashed;
     }

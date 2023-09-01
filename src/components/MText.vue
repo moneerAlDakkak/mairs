@@ -1,8 +1,11 @@
 <template>
   <div
-    :class="`MTEXT${bordered ? ' m-bordered' : ''}${tags ? ' m-tags' : ''}${
-      disabled ? ' m-disabled' : ''
-    }`"
+    :class="{
+      MTEXT: !unstyled,
+      'm-bordered': bordered,
+      'm-tags': tags,
+      'm-disabled': disabled,
+    }"
   >
     <label :for="id" v-if="label">{{ label }}</label>
     <div @click="input?.focus()">
@@ -23,12 +26,11 @@
         :rows="tags ? 1 : rows"
         :maxlength="!tags ? maxlength : undefined"
         :disabled="disabled"
-        :value="tags ? '' : modelValue"
-      ></textarea>
+        >{{ tags ? "" : modelValue }}</textarea
+      >
     </div>
     <div>
       <!-- validation -->
-      <!-- TODO: Validation span mount & unmount cause letters deleting -->
       <template v-if="pattern && firstInput">
         <span v-if="patternMatch && validMessage" class="m-valid">
           {{ validMessage }}
@@ -59,7 +61,6 @@ import {
   onMounted,
   getCurrentInstance,
   computed,
-  watch,
 } from "vue";
 
 // Define props
@@ -79,6 +80,7 @@ const props = withDefaults(
     rows?: number;
     includedHtml?: string[];
     transformer?: (s: string) => string;
+    unstyled?: true;
   }>(),
   {}
 );
@@ -128,7 +130,7 @@ function cleanHtmlString(htmlString: string): string {
 }
 
 function adjustDirection() {
-  if (input.value && ar.test(input.value.value)) {
+  if (input.value && ar.test(input.value.value[0])) {
     dir.value = "rtl";
   } else {
     dir.value = "ltr";
@@ -213,10 +215,10 @@ defineExpose({
 div.MTEXT {
   display: flex;
   flex-flow: column nowrap;
-  gap: m-ui-grid(0.25);
+  gap: 0.25rem;
   label {
     font-weight: bold;
-    margin: 0 m-ui-grid(0.25);
+    margin: 0 0.25rem;
   }
   &.m-bordered > div:first-of-type {
     border: 2px solid $color_box;
@@ -242,8 +244,8 @@ div.MTEXT {
     flex-flow: row wrap;
     align-content: center;
     align-items: center;
-    gap: m-ui-grid(0.5);
-    padding: m-ui-grid();
+    gap: 0.5rem;
+    padding: 1rem;
     textarea {
       &:is(.m-tags textarea) {
         overflow: hidden;
@@ -283,7 +285,7 @@ div.MTEXT {
       color: $color_accent;
       border: 1px solid m-change-color("accent", $alpha: 0.2);
       font-size: 0.9em;
-      padding: m-ui-grid(0.25) m-ui-grid(0.5);
+      padding: 0.25rem 0.5rem;
       border-radius: $ui_radius;
       white-space: nowrap;
       display: inline-block;
@@ -291,7 +293,7 @@ div.MTEXT {
   }
   & > div:last-of-type {
     font-size: 0.8em;
-    margin: 0 m-ui-grid(0.25);
+    margin: 0 0.25rem;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-areas: "validation counter";

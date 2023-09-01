@@ -1,11 +1,12 @@
 <template>
-  <button :class="[classes, statusClass].join(' ')" :disabled="loading">
+  <button :class="{ ...statusClasses, ...styleClasses }" :disabled="loading">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
       v-if="loading"
     >
       <path
+        fill="currentColor"
         d="M222.7 32.1c5 16.9-4.6 34.8-21.5 39.8C121.8 95.6 64 169.1 64 256c0 106 86 192 192 192s192-86 192-192c0-86.9-57.8-160.4-137.1-184.1c-16.9-5-26.6-22.9-21.5-39.8s22.9-26.6 39.8-21.5C434.9 42.1 512 140 512 256c0 141.4-114.6 256-256 256S0 397.4 0 256C0 140 77.1 42.1 182.9 10.6c16.9-5 34.8 4.6 39.8 21.5z"
       />
     </svg>
@@ -14,10 +15,8 @@
 </template>
 
 <script lang="ts">
-import status from "./mixins/status";
 export default {
   name: "MButton",
-  mixins: [status],
 };
 </script>
 
@@ -28,37 +27,31 @@ const props = withDefaults(
   defineProps<{
     bordered?: boolean;
     rounded?: boolean;
-    noStyle?: boolean;
     // Define statusProps
     safe?: boolean;
     warning?: boolean;
     danger?: boolean;
     loading?: boolean;
+    unstyled?: boolean;
   }>(),
   {}
 );
 
 // Manage classes
-const statusClass = computed(() => {
-  let status = "";
-  if (props.safe) status = "m-safe";
-  if (props.warning) status = "m-warning";
-  if (props.danger) status = "m-danger";
-  return status;
+const statusClasses = computed(() => {
+  return {
+    "m-safe": props.safe,
+    "m-warning": props.warning,
+    "m-danger": props.danger,
+  };
 });
 
-const classes = computed(() => {
-  let types = ["MBUTTON"];
-  if (props.bordered) {
-    types.push("m-bordered");
-  }
-  if (props.rounded) {
-    types.push("m-rounded");
-  }
-  if (props.noStyle) {
-    types.push("m-no-style");
-  }
-  return types.join(" ");
+const styleClasses = computed(() => {
+  return {
+    MBUTTON: !props.unstyled,
+    "m-bordered": props.bordered,
+    "m-rounded": props.rounded,
+  };
 });
 </script>
 
@@ -66,19 +59,16 @@ const classes = computed(() => {
 @use "../sass/index" as *;
 
 button.MBUTTON {
+  all: unset;
+  box-sizing: border-box;
   font-weight: bold;
-  font-family: inherit;
-  border: none;
-  outline: none;
-  text-decoration: none;
+  font-size: 0.85em;
   display: inline-flex;
   justify-content: center;
   align-content: center;
   align-items: center;
-  // gap: 8px;
-  gap: m-ui-grid(0.5);
-  // padding: 8px 14px;
-  padding: m-ui-grid(0.5) m-ui-grid(1);
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
   border-radius: $ui_radius;
   cursor: pointer;
   transition: all 0.4s ease;
@@ -96,7 +86,7 @@ button.MBUTTON {
     background-color: transparent;
     color: $color_accent;
     border: 1px solid $color_accent;
-    padding: m-ui-grid(0.5, -1px) m-ui-grid(1, -1px);
+    padding: calc(0.5rem - 1px) calc(1rem - 1px);
     &:hover {
       background: $color_accent;
       color: $color_onAccent;
@@ -111,14 +101,6 @@ button.MBUTTON {
     &:hover {
       background: m-contrast("box", 10%);
       transform: scale(1.01);
-    }
-  }
-  &.m-no-style {
-    background-color: transparent;
-    color: $color_text;
-    padding: 0;
-    &:hover {
-      background: transparent;
     }
   }
   &.m-safe {

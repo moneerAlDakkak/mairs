@@ -16,6 +16,19 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: NumberConstructor;
         required: false;
     };
+    position: {
+        type: StringConstructor;
+        required: true;
+        default: string;
+    };
+    autoDirection: {
+        type: BooleanConstructor;
+        required: false;
+    };
+    math: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }, {
     notes: import("vue").Ref<{
         id?: number | undefined;
@@ -90,5 +103,22 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: NumberConstructor;
         required: false;
     };
-}>>, {}>;
+    position: {
+        type: StringConstructor;
+        required: true;
+        default: string;
+    };
+    autoDirection: {
+        type: BooleanConstructor;
+        required: false;
+    };
+    math: {
+        type: BooleanConstructor;
+        required: false;
+    };
+}>>, {
+    math: boolean;
+    autoDirection: boolean;
+    position: string;
+}>;
 export default _sfc_main;

@@ -1,9 +1,7 @@
 <template>
   <section
     ref="slider"
-    :class="`MSLIDER ${stacked ? 'm-stacked' : ''} ${
-      carousel ? 'm-carousel' : ''
-    }`"
+    :class="{ MSLIDER: true, 'm-stacked': stacked, 'm-carousel': carousel }"
   >
     <MButton aria-label="slider-previous" @click="previous()"></MButton>
     <div class="MTRACK" ref="track">
@@ -113,8 +111,8 @@ defineExpose({
   .MTRACK {
     display: flex;
     overflow: auto;
-    gap: m-ui-grid(0.5);
-    padding: m-ui-grid(1) 0;
+    gap: 0.5rem;
+    padding: 1rem 0;
     scroll-behavior: smooth;
     transform-style: preserve-3d;
     scroll-snap-type: x mandatory;
@@ -182,9 +180,9 @@ defineExpose({
   .MPOINTERS {
     width: 100%;
     grid-column: span 3;
-    padding: m-ui-grid();
+    padding: 1rem;
     display: flex;
-    gap: m-ui-grid();
+    gap: 1rem;
     &:not(.m-carousel .MPOINTERS) {
       display: none;
     }

@@ -1,8 +1,11 @@
 <template>
   <div
-    :class="`MINPUT${bordered ? ' m-bordered' : ''}${
-      disabled ? ' m-disabled' : ''
-    }`"
+    :class="{
+      MINPUT: !unstyled,
+      'm-bordered': bordered,
+      'm-disabled': disabled,
+      'm-shrinked': shrinked,
+    }"
   >
     <label :for="id" v-if="label">{{ label }}</label>
     <div>
@@ -21,7 +24,6 @@
     </div>
     <div>
       <!-- validation -->
-      <!-- TODO: Validation span mount & unmount cause letters deleting -->
       <template v-if="pattern && firstInput">
         <span v-if="patternMatch && validMessage" class="m-valid">
           {{ validMessage }}
@@ -48,7 +50,6 @@ import {
   onMounted,
   getCurrentInstance,
   computed,
-  watch,
 } from "vue";
 
 // Define props
@@ -61,14 +62,14 @@ const props = withDefaults(
     validMessage?: string;
     autoDirection?: boolean;
     bordered?: boolean;
-    type?: "text" | "email" | "password" | "number" | "date" | "url";
+    type?: "text" | "email" | "password" | "number" | "date" | "url" | "search";
     label?: string;
     disabled?: boolean;
+    shrinked?: boolean;
     transformer?: (s: string) => string;
+    unstyled?: boolean;
   }>(),
   {
-    autoDirection: false,
-    bordered: false,
     type: "text",
   }
 );
@@ -102,7 +103,7 @@ onMounted(() => {
 // Component methods :
 
 function adjustDirection() {
-  if (ar.test(input.value.value)) {
+  if (ar.test(input.value.value[0])) {
     dir.value = "rtl";
   } else {
     dir.value = "ltr";
@@ -134,6 +135,7 @@ function handleInput(e: any) {
   if (props.autoDirection) adjustDirection();
   checkValidate(e.currentTarget.value);
 }
+
 defineExpose({
   isValid,
 });
@@ -146,10 +148,10 @@ defineExpose({
 div.MINPUT {
   display: flex;
   flex-flow: column nowrap;
-  gap: m-ui-grid(0.25);
+  gap: 0.25rem;
   label {
     font-weight: bold;
-    margin: 0 m-ui-grid(0.25);
+    margin: 0 0.25rem;
   }
   &.m-bordered > div:first-of-type {
     border: 2px solid $color_box;
@@ -166,6 +168,22 @@ div.MINPUT {
     background-color: m-adjust-color("text", $alpha: -0.8);
     border-radius: $ui_radius;
   }
+
+  &.m-shrinked {
+    div:first-of-type {
+      width: fit-content;
+      &:has(input:not(:focus)) {
+        gap: 0;
+      }
+      input {
+        transition: all 0.4s ease;
+        &:not(:focus) {
+          width: 0;
+        }
+      }
+    }
+  }
+
   & > div:first-of-type {
     position: relative;
     background-color: $color_box;
@@ -174,11 +192,12 @@ div.MINPUT {
     display: flex;
     align-content: center;
     align-items: center;
-    // gap: 16px;
-    gap: m-ui-grid();
-    // padding: 16px 16px;
-    padding: m-ui-grid();
+    gap: 1rem;
+    padding: 1rem;
+    transition: all 0.4s ease;
+
     input {
+      padding: 0;
       background: transparent;
       width: 100%;
       border: none;
@@ -203,7 +222,7 @@ div.MINPUT {
   }
   & > div:last-of-type {
     font-size: 0.8em;
-    margin: 0 m-ui-grid(0.25);
+    margin: 0 0.25rem;
     span {
       &.m-valid {
         color: $color_safe;

@@ -3,7 +3,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
-    noStyle: {
+    unstyled: {
         type: BooleanConstructor;
         required: false;
     };
@@ -24,12 +24,12 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
-    noStyle: {
+    unstyled: {
         type: BooleanConstructor;
         required: false;
     };
 }>>, {
-    noStyle: boolean;
+    unstyled: boolean;
     open: boolean;
 }>;
 export default _sfc_main;

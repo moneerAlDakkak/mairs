@@ -55,6 +55,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: FunctionConstructor;
         required: false;
     };
+    unstyled: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }, {
     props: any;
     emit: (event: "update:modelValue", ...args: any[]) => void;
@@ -130,11 +134,16 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: FunctionConstructor;
         required: false;
     };
+    unstyled: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {
     autoDirection: boolean;
     bordered: boolean;
+    unstyled: boolean;
     disabled: boolean;
     tags: boolean;
 }>;

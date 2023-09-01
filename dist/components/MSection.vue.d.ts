@@ -6,6 +6,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
 }, {
     props: any;
     sectionEl: any;
+    observer: IntersectionObserver;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     forward: {
         type: BooleanConstructor;

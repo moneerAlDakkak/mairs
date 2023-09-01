@@ -1,6 +1,9 @@
 <template>
-  <section :class="`MNOTES`" v-show="notes.length">
-    <transition-group :name="animation ? animation : 'slide-right'">
+  <aside
+    :class="`MNOTES m-${position}`"
+    :style="notes.length ? '' : 'pointer-events: none'"
+  >
+    <transition-group :name="animation ? animation : `slide-${position}`">
       <div
         v-for="note in notes"
         :key="note.title"
@@ -11,10 +14,10 @@
           <i v-if="note.icon" :class="note.icon"></i>
           {{ note.title }}
         </b>
-        <MP autoDirection math>{{ note.message }}</MP>
+        <MP :autoDirection="autoDirection" :math="math">{{ note.message }}</MP>
       </div>
     </transition-group>
-  </section>
+  </aside>
 </template>
 
 <script lang="ts">
@@ -44,8 +47,13 @@ const props = withDefaults(
   defineProps<{
     animation?: string;
     timeout?: number;
+    position: "top" | "right" | "bottom" | "left";
+    autoDirection?: boolean;
+    math?: boolean;
   }>(),
-  {}
+  {
+    position: "right",
+  }
 );
 const lastNoteId = ref(0);
 function add(note: Note) {
@@ -69,31 +77,47 @@ defineExpose({
 <style lang="scss" scoped>
 @use "../sass/index" as *;
 @include m-animation-slide("slide-right", 100%, 0, 0.2s);
-section {
+@include m-animation-slide("slide-left", -100%, 0, 0.2s);
+@include m-animation-slide("slide-top", 0, -100%, 0.2s);
+@include m-animation-slide("slide-bottom", 0, 100%, 0.2s);
+aside {
   z-index: 100;
   position: fixed;
-  right: 0;
-  bottom: 0;
   height: fit-content;
   overflow: hidden;
-  padding: 6px;
+  padding: 0.5rem;
   width: 300px;
-  max-width: 100%;
+  max-width: 600px;
   display: flex;
   flex-flow: column-reverse;
-  gap: m-ui-grid(0.5);
+  gap: 0.5rem;
+  &.m-right {
+    @include m-horizon-end(0);
+    bottom: 0;
+  }
+  &.m-left {
+    @include m-horizon-start(0);
+    bottom: 0;
+  }
+  &.m-top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
+  &.m-bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+  }
   div {
     cursor: pointer;
-    border: 2px solid m-adjust-color("text", $alpha: -90%);
     background-color: $color_box;
-    background-image: linear-gradient(
-      0,
-      m-change-color("accent", $alpha: 0.3) 0,
-      m-change-color("accent", $alpha: 0.3) 100%
-    );
+    box-shadow: 0 0 1px 0 $color_accent inset;
     color: $color_text;
     border-radius: min($ui_radius, 20px);
-    padding: m-ui-grid(1.5);
+    padding: 1.2rem;
     max-width: 100%;
     max-height: 200px;
     &.m-safe {
@@ -101,24 +125,24 @@ section {
     }
     &.m-warning {
       @include setColor("accent", $color_warning);
-      @include setColor("onAccent", #111);
     }
     &.m-danger {
       @include setColor("accent", $color_danger);
     }
     b {
+      font-size: 0.92em;
       display: flex;
       align-items: center;
       align-content: center;
-      gap: m-ui-grid();
+      gap: 1rem;
       color: $color_accent;
     }
     p {
-      font-size: 0.94em;
+      font-size: 0.8em;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      margin: m-ui-grid() 0 0;
+      margin: 1rem 0 0;
     }
   }
 }
