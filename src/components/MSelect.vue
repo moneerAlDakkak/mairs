@@ -1,13 +1,41 @@
 <template>
-  <MDrop class="MSELECT">
+  <MDrop class="MSELECT" ref="drop" unclicked>
     <template #summary>
-      <MInput
-        v-model="searchString"
-        :disabled="multiple"
+      <MText
+        v-if="multiple && Array.isArray(props.modelValue)"
+        :id="id + '-search'"
+        tags
+        v-model="tags"
+        v-model:text-value="searchString"
+        @blur="handleBlur($event)"
+        @focus="handleFocus()"
+        @keyup.enter="handleArrayInput()"
+        @keyup.delete="handleArrayInput('backspace')"
         :placeholder="placeholder"
+        :bordered="bordered"
+        :pattern="pattern"
+        :invalid-message="invalidMessage"
+        :validMessage="validMessage"
+        :transformer="transformer"
+        :label="label"
+        :disabled="disabled"
+        :maxlength="maxlength"
+      />
+      <MInput
+        v-else
+        v-model="searchString"
         :id="id + '-search'"
         @blur="handleBlur($event)"
+        @focus="handleFocus()"
+        @keyup="handleStringInput()"
+        :placeholder="placeholder"
         :bordered="bordered"
+        :pattern="pattern"
+        :invalid-message="invalidMessage"
+        :validMessage="validMessage"
+        :transformer="transformer"
+        :label="label"
+        :disabled="disabled"
       >
         <template #start>
           <slot name="start"></slot>
@@ -22,7 +50,6 @@
       <div
         v-if="
           !searchString ||
-          multiple ||
           option.label?.toLowerCase().includes(searchString.toLowerCase())
         "
         @click="option.disabled ? null : handleClick(option)"
@@ -38,9 +65,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, getCurrentInstance, onMounted } from "vue";
+import { ref, computed, getCurrentInstance, onMounted, watch } from "vue";
 import MInput from "./MInput.vue";
-import { MDrop } from ".";
+import { MDrop, MText } from ".";
 
 export interface OptionAttrs {
   selected?: boolean;
@@ -57,7 +84,15 @@ const props = defineProps<{
   id: string;
   placeholder?: string;
   bordered?: boolean;
-  required?: boolean;
+
+  freeOptions?: boolean;
+  pattern?: RegExp;
+  invalidMessage?: string;
+  validMessage?: string;
+  transformer?: (s: string) => string;
+  label?: string;
+  disabled?: boolean;
+  maxlength?: number;
 }>();
 
 const labels = computed(() => props.options.map((opt) => opt.label));
@@ -71,51 +106,112 @@ function getOptionByValue(value: string) {
   return props.options.find((opt) => opt.value === value);
 }
 
-const isOpen = ref(false);
 const searchString = ref("");
+const tags = ref([...props.modelValue]);
+const drop = ref();
+
+function handleStringInput() {
+  const option = {
+    value: getOptionByLabel(searchString.value)?.value || searchString.value,
+    label: searchString.value,
+  };
+  submitOption(option);
+  checkValidate();
+}
+
+function handleArrayInput(method?: "backspace") {
+  let newOptions: OptionAttrs[] = [];
+  tags.value.forEach((tag) => {
+    const option = {
+      value: getOptionByLabel(tag)?.value || tag,
+      label: tag,
+    };
+    newOptions.push(option);
+  });
+  submitOptions(newOptions, method);
+  searchString.value = "";
+  checkValidate();
+}
+
+watch(
+  () => props.modelValue,
+  (newArr) => {
+    if (props.multiple)
+      tags.value = (newArr as string[]).map(
+        (val) => getOptionByValue(val)?.label || val
+      );
+  }
+);
+
+function handleFocus() {
+  drop.value.openContent();
+}
 
 const handleBlur = (e: any) => {
   setTimeout(() => {
-    if (!labels.value.includes(searchString.value) && !props.multiple) {
-      searchString.value = props.modelValue
-        ? getOptionByValue(props.modelValue as string)?.label || ""
-        : "";
-    }
-  }, 100);
-  const el = e.currentTarget.parentElement;
-  setTimeout(() => {
-    el.click();
+    drop.value.shrink();
   }, 200);
+
+  if (!props.multiple) {
+    handleStringInput();
+  }
 };
 
 const handleClick = (option: OptionAttrs) => {
   if (props.multiple && Array.isArray(props.modelValue)) {
-    let newResult = [...props.modelValue];
-    if (newResult.find((el: string) => el === option.value)) {
-      newResult = newResult.filter((el: string) => el !== option.value);
-    } else {
-      newResult.push(option.value);
-    }
-    emit("update:modelValue", newResult);
-    let labels = props.options
-      .filter((opt) => newResult.includes(opt.value))
-      .map((opt) => opt.label);
-    searchString.value = labels.join(", ");
+    submitOptions(option, "click");
   } else {
-    isOpen.value = false;
-    emit("update:modelValue", option.value);
-    searchString.value = option.label;
+    submitOption(option);
   }
   checkValidate();
 };
 
+function submitOption(option: OptionAttrs) {
+  if (!props.freeOptions && !values.value.includes(option.value)) return;
+  if (props.pattern && !props.pattern.test(option.value)) return;
+  emit("update:modelValue", option.value);
+  searchString.value = option.label;
+}
+
+function submitOptions(
+  option: OptionAttrs | OptionAttrs[],
+  method?: "backspace" | "click"
+) {
+  let newOptions: OptionAttrs[] = [];
+  if (Array.isArray(option)) {
+    newOptions = [...option];
+  } else {
+    newOptions[0] = option;
+  }
+
+  let currentOptions = new Set([...props.modelValue]);
+  if (method === "backspace" && !searchString.value) {
+    let a = Array.from(currentOptions);
+    a.pop();
+    currentOptions = new Set(Array.from(a));
+  } else {
+    newOptions.forEach((newOption) => {
+      if (!props.freeOptions && !values.value.includes(newOption.value)) return;
+      if (props.pattern && !props.pattern.test(newOption.value)) return;
+
+      if (method === "click" && currentOptions.has(newOption.value))
+        currentOptions.delete(newOption.value);
+      else currentOptions.add(newOption.value);
+    });
+  }
+  const arrOptions = Array.from(currentOptions);
+  if (props.maxlength && arrOptions.length > props.maxlength) return;
+  emit("update:modelValue", arrOptions);
+}
+
 // MForm integration
 onMounted(() => {
-  if (props.required) {
+  if (props.pattern) {
     (formParent as any)?.value?.exposed.registerToInvalids(props.id);
   }
   const selectedOption = props.options.filter((opt) => opt.selected)[0];
-  if (selectedOption) handleClick(selectedOption);
+  if (selectedOption && !props.multiple) submitOption(selectedOption);
+  if (selectedOption && props.multiple) submitOptions(selectedOption);
 });
 
 function isValid() {

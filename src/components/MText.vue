@@ -68,6 +68,7 @@ const props = withDefaults(
   defineProps<{
     id: string;
     modelValue?: string | string[];
+    textValue?: string;
     autoDirection?: boolean;
     bordered?: boolean;
     label?: string;
@@ -85,7 +86,7 @@ const props = withDefaults(
   {}
 );
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "update:textValue"]);
 
 let firstInput = ref(false);
 let patternMatch = ref(false);
@@ -154,6 +155,7 @@ function checkValidate(currentInput: string | number) {
 
 function handleInput(e: any) {
   firstInput.value = true;
+  emit("update:textValue", e.currentTarget.value);
   if (!props.tags) {
     let newValue = e.currentTarget.value;
     if (props.includedHtml) {

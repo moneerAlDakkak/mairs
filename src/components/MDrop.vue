@@ -1,6 +1,6 @@
 <template>
   <details :class="{ MDROP: !unstyled }" ref="detailsEl" :open="open">
-    <summary ref="summary" @click.prevent="handleClick">
+    <summary ref="summary" @click.prevent="!unclicked && handleClick">
       <slot name="summary"></slot>
     </summary>
     <section ref="contentEl">
@@ -22,6 +22,7 @@ const props = withDefaults(
   defineProps<{
     open?: boolean;
     unstyled?: boolean;
+    unclicked?: boolean;
   }>(),
   {}
 );
@@ -129,6 +130,8 @@ function onAnimationFinish(open: boolean) {
     return;
   }
 }
+
+defineExpose({ openContent, shrink });
 </script>
 
 <style lang="scss" scoped>
