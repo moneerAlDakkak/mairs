@@ -466,6 +466,10 @@ export declare const MDrop: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
+    unclicked: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }, {
     props: any;
     isClosing: import("vue").Ref<boolean>;
@@ -487,9 +491,14 @@ export declare const MDrop: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
+    unclicked: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }>>, {
     unstyled: boolean;
     open: boolean;
+    unclicked: boolean;
 }>;
 export declare const MSlider: import("vue").DefineComponent<{
     carousel: {
@@ -803,6 +812,10 @@ export declare const MText: import("vue").DefineComponent<{
         type: (StringConstructor | ArrayConstructor)[];
         required: false;
     };
+    textValue: {
+        type: StringConstructor;
+        required: false;
+    };
     autoDirection: {
         type: BooleanConstructor;
         required: false;
@@ -857,7 +870,7 @@ export declare const MText: import("vue").DefineComponent<{
     };
 }, {
     props: any;
-    emit: (event: "update:modelValue", ...args: any[]) => void;
+    emit: (event: "update:modelValue" | "update:textValue", ...args: any[]) => void;
     firstInput: import("vue").Ref<boolean>;
     patternMatch: import("vue").Ref<boolean>;
     dir: import("vue").Ref<string>;
@@ -873,13 +886,17 @@ export declare const MText: import("vue").DefineComponent<{
     addTag: (e: any) => void;
     lastValue: import("vue").Ref<string>;
     removeTag: (e: any) => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "update:textValue")[], "update:modelValue" | "update:textValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     id: {
         type: StringConstructor;
         required: true;
     };
     modelValue: {
         type: (StringConstructor | ArrayConstructor)[];
+        required: false;
+    };
+    textValue: {
+        type: StringConstructor;
         required: false;
     };
     autoDirection: {
@@ -936,6 +953,7 @@ export declare const MText: import("vue").DefineComponent<{
     };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+    "onUpdate:textValue"?: ((...args: any[]) => any) | undefined;
 }, {
     autoDirection: boolean;
     bordered: boolean;
@@ -968,8 +986,36 @@ export declare const MSelect: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
-    required: {
+    freeOptions: {
         type: BooleanConstructor;
+        required: false;
+    };
+    pattern: {
+        type: null;
+        required: false;
+    };
+    invalidMessage: {
+        type: StringConstructor;
+        required: false;
+    };
+    validMessage: {
+        type: StringConstructor;
+        required: false;
+    };
+    transformer: {
+        type: FunctionConstructor;
+        required: false;
+    };
+    label: {
+        type: StringConstructor;
+        required: false;
+    };
+    disabled: {
+        type: BooleanConstructor;
+        required: false;
+    };
+    maxlength: {
+        type: NumberConstructor;
         required: false;
     };
 }, {
@@ -979,10 +1025,16 @@ export declare const MSelect: import("vue").DefineComponent<{
     values: import("vue").ComputedRef<string[]>;
     getOptionByLabel: (label: string) => import("./components/MSelect.vue").OptionAttrs | undefined;
     getOptionByValue: (value: string) => import("./components/MSelect.vue").OptionAttrs | undefined;
-    isOpen: import("vue").Ref<boolean>;
     searchString: import("vue").Ref<string>;
+    tags: import("vue").Ref<string[]>;
+    drop: import("vue").Ref<any>;
+    handleStringInput: () => void;
+    handleArrayInput: (method?: "backspace" | undefined) => void;
+    handleFocus: () => void;
     handleBlur: (e: any) => void;
     handleClick: (option: import("./components/MSelect.vue").OptionAttrs) => void;
+    submitOption: (option: import("./components/MSelect.vue").OptionAttrs) => void;
+    submitOptions: (option: import("./components/MSelect.vue").OptionAttrs | import("./components/MSelect.vue").OptionAttrs[], method?: "backspace" | "click" | undefined) => void;
     isValid: () => boolean;
     formParent: import("vue").ComputedRef<import("vue").ComponentInternalInstance | null | undefined>;
     checkValidate: () => void;
@@ -1129,6 +1181,10 @@ export declare const MSelect: import("vue").DefineComponent<{
             type: BooleanConstructor;
             required: false;
         };
+        unclicked: {
+            type: BooleanConstructor;
+            required: false;
+        };
     }, {
         props: any;
         isClosing: import("vue").Ref<boolean>;
@@ -1150,9 +1206,172 @@ export declare const MSelect: import("vue").DefineComponent<{
             type: BooleanConstructor;
             required: false;
         };
+        unclicked: {
+            type: BooleanConstructor;
+            required: false;
+        };
     }>>, {
         unstyled: boolean;
         open: boolean;
+        unclicked: boolean;
+    }>;
+    readonly MText: import("vue").DefineComponent<{
+        id: {
+            type: StringConstructor;
+            required: true;
+        };
+        modelValue: {
+            type: (StringConstructor | ArrayConstructor)[];
+            required: false;
+        };
+        textValue: {
+            type: StringConstructor;
+            required: false;
+        };
+        autoDirection: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        bordered: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        label: {
+            type: StringConstructor;
+            required: false;
+        };
+        tags: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        maxlength: {
+            type: NumberConstructor;
+            required: false;
+        };
+        pattern: {
+            type: null;
+            required: false;
+        };
+        invalidMessage: {
+            type: StringConstructor;
+            required: false;
+        };
+        validMessage: {
+            type: StringConstructor;
+            required: false;
+        };
+        disabled: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        rows: {
+            type: NumberConstructor;
+            required: false;
+        };
+        includedHtml: {
+            type: ArrayConstructor;
+            required: false;
+        };
+        transformer: {
+            type: FunctionConstructor;
+            required: false;
+        };
+        unstyled: {
+            type: BooleanConstructor;
+            required: false;
+        };
+    }, {
+        props: any;
+        emit: (event: "update:modelValue" | "update:textValue", ...args: any[]) => void;
+        firstInput: import("vue").Ref<boolean>;
+        patternMatch: import("vue").Ref<boolean>;
+        dir: import("vue").Ref<string>;
+        ar: RegExp;
+        input: import("vue").Ref<HTMLInputElement | null>;
+        instance: import("vue").ComponentInternalInstance | null;
+        formParent: import("vue").ComputedRef<import("vue").ComponentInternalInstance | null | undefined>;
+        cleanHtmlString: (htmlString: string) => string;
+        adjustDirection: () => void;
+        isValid: () => boolean;
+        checkValidate: (currentInput: string | number) => void;
+        handleInput: (e: any) => void;
+        addTag: (e: any) => void;
+        lastValue: import("vue").Ref<string>;
+        removeTag: (e: any) => void;
+    }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "update:textValue")[], "update:modelValue" | "update:textValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+        id: {
+            type: StringConstructor;
+            required: true;
+        };
+        modelValue: {
+            type: (StringConstructor | ArrayConstructor)[];
+            required: false;
+        };
+        textValue: {
+            type: StringConstructor;
+            required: false;
+        };
+        autoDirection: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        bordered: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        label: {
+            type: StringConstructor;
+            required: false;
+        };
+        tags: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        maxlength: {
+            type: NumberConstructor;
+            required: false;
+        };
+        pattern: {
+            type: null;
+            required: false;
+        };
+        invalidMessage: {
+            type: StringConstructor;
+            required: false;
+        };
+        validMessage: {
+            type: StringConstructor;
+            required: false;
+        };
+        disabled: {
+            type: BooleanConstructor;
+            required: false;
+        };
+        rows: {
+            type: NumberConstructor;
+            required: false;
+        };
+        includedHtml: {
+            type: ArrayConstructor;
+            required: false;
+        };
+        transformer: {
+            type: FunctionConstructor;
+            required: false;
+        };
+        unstyled: {
+            type: BooleanConstructor;
+            required: false;
+        };
+    }>> & {
+        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+        "onUpdate:textValue"?: ((...args: any[]) => any) | undefined;
+    }, {
+        autoDirection: boolean;
+        bordered: boolean;
+        unstyled: boolean;
+        disabled: boolean;
+        tags: boolean;
     }>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     options: {
@@ -1179,14 +1398,43 @@ export declare const MSelect: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
-    required: {
+    freeOptions: {
         type: BooleanConstructor;
+        required: false;
+    };
+    pattern: {
+        type: null;
+        required: false;
+    };
+    invalidMessage: {
+        type: StringConstructor;
+        required: false;
+    };
+    validMessage: {
+        type: StringConstructor;
+        required: false;
+    };
+    transformer: {
+        type: FunctionConstructor;
+        required: false;
+    };
+    label: {
+        type: StringConstructor;
+        required: false;
+    };
+    disabled: {
+        type: BooleanConstructor;
+        required: false;
+    };
+    maxlength: {
+        type: NumberConstructor;
         required: false;
     };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {
     bordered: boolean;
-    required: boolean;
+    disabled: boolean;
     multiple: boolean;
+    freeOptions: boolean;
 }>;

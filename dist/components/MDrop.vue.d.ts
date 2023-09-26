@@ -7,6 +7,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
+    unclicked: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }, {
     props: any;
     isClosing: import("vue").Ref<boolean>;
@@ -28,8 +32,13 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: BooleanConstructor;
         required: false;
     };
+    unclicked: {
+        type: BooleanConstructor;
+        required: false;
+    };
 }>>, {
     unstyled: boolean;
     open: boolean;
+    unclicked: boolean;
 }>;
 export default _sfc_main;

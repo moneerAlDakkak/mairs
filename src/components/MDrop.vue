@@ -1,6 +1,6 @@
 <template>
   <details :class="{ MDROP: !unstyled }" ref="detailsEl" :open="open">
-    <summary ref="summary" @click.prevent="!unclicked && handleClick">
+    <summary ref="summary" @click.prevent="handleClick">
       <slot name="summary"></slot>
     </summary>
     <section ref="contentEl">
@@ -37,6 +37,7 @@ let contentEl: any = ref(null);
 
 // Component methods
 function handleClick() {
+  if (props.unclicked) return;
   // Check if the element is being closed or is already closed
   if (isClosing.value || !detailsEl.value.open) {
     openContent();

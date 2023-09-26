@@ -7,6 +7,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
         type: (StringConstructor | ArrayConstructor)[];
         required: false;
     };
+    textValue: {
+        type: StringConstructor;
+        required: false;
+    };
     autoDirection: {
         type: BooleanConstructor;
         required: false;
@@ -61,7 +65,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     };
 }, {
     props: any;
-    emit: (event: "update:modelValue", ...args: any[]) => void;
+    emit: (event: "update:modelValue" | "update:textValue", ...args: any[]) => void;
     firstInput: import("vue").Ref<boolean>;
     patternMatch: import("vue").Ref<boolean>;
     dir: import("vue").Ref<string>;
@@ -77,13 +81,17 @@ declare const _sfc_main: import("vue").DefineComponent<{
     addTag: (e: any) => void;
     lastValue: import("vue").Ref<string>;
     removeTag: (e: any) => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
+}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "update:textValue")[], "update:modelValue" | "update:textValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     id: {
         type: StringConstructor;
         required: true;
     };
     modelValue: {
         type: (StringConstructor | ArrayConstructor)[];
+        required: false;
+    };
+    textValue: {
+        type: StringConstructor;
         required: false;
     };
     autoDirection: {
@@ -140,6 +148,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+    "onUpdate:textValue"?: ((...args: any[]) => any) | undefined;
 }, {
     autoDirection: boolean;
     bordered: boolean;
